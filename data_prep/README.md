@@ -61,10 +61,14 @@ provenance. `wind_speed_100m` is almost certainly from the **Global Wind
 Atlas** (DTU / World Bank), which publishes exactly this kind of layer for
 France at https://globalwindatlas.info/area/France -- no fetch script yet,
 but the name and height match too well to be a coincidence.
-`voix_gagnant_mean/min/max` is different: it's home-made, counted directly
-from our own election data rather than downloaded from anywhere. The
-script that did the counting didn't survive, so it can't be rebuilt
-byte-for-byte yet, but there's no external source to chase here.
+`voix_gagnant_mean/min/max` turned out to be simpler than it looked: it's
+just the national mean/min/max of the winner's vote count for that
+election year, the same three numbers repeated on every commune row.
+`code/shared_data/build_voix_gagnant_stats.R` recomputes them from
+`election_data/VariablesY/variableY.csv` and reproduces the existing file
+byte-for-byte (checked: identical checksum, all 4 years). It only rebuilds
+that column, though -- `wind_speed_100m` stays as-is since its own source
+isn't pinned down yet.
 
 ## 4. Geography / commune reference data
 
@@ -176,22 +180,15 @@ do use, for control-group matching.
 
 ## What's still not scripted
 
-Everything with a raw external source now has a working fetch script,
-checked against the existing files, not just plausible. Two things are
-left, and they're a different kind of gap -- not a missing download, a
-missing script for something that was computed in-house:
-
-- **`voix_gagnant_mean/min/max`** (in `external_wind_voteshare.csv`) --
-  counted by hand from our own election data, script not preserved.
-- **The extra ~5,800-commune gap in `control_group_baseline.csv`** --
-  the main filter rule is confirmed and scripted
-  (`build_control_group_baseline.R`), but it over-generates relative to
-  the original file by that many communes, and the exact extra filter
-  that trims it down hasn't been identified.
-
-Neither affects using the data as it stands now -- both are about being
-able to regenerate these exact files from nothing, not about anything
-being wrong with them.
+One thing: the extra ~5,800-commune gap in `control_group_baseline.csv`.
+The main filter rule is confirmed and scripted
+(`build_control_group_baseline.R`, 99.98% match), but it over-generates
+relative to the original file by that many communes, and the exact extra
+filter that trims it down hasn't been identified. Doesn't affect using the
+file as it stands -- it's about regenerating this exact file from
+nothing, not about anything being wrong with it. `wind_speed_100m`'s exact
+source (very likely Global Wind Atlas, see §3) is the other loose end, but
+that one just needs a fetch script written, not a mystery solved.
 
 ## Checking your copy
 
