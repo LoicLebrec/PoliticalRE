@@ -208,8 +208,13 @@ National des Élus via a data.cquest.org archive snapshot dated
 (after CRLF normalization) before being added to this package.
 
 **`code/shared_data/control_group_baseline.csv`** — the unmatched control
-pool. No original construction script survives. The general method is
-confirmed and implemented in
+pool. No original construction script survives, and this is documented
+by the author at the point of writing its replacement: the header of the
+script that superseded it states explicitly that its construction was
+"non tracée dans le repo" (not tracked in the repository). This was
+checked directly against every script found that references
+`control_group.csv` (its live-tree filename); all are readers, none is a
+writer. The general method is confirmed and implemented in
 `code/shared_data/build_control_group_baseline.R`: rural communes (INSEE
 density 5-7) that were never treated, filtered from the project's own
 panel — the same two filters applied by `code/build_control_group.R` for
