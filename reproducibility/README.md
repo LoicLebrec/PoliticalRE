@@ -75,14 +75,22 @@ the construction of these files and the remaining gap in that chain.
 ## Contents of `reference_output/`
 
 A snapshot of the tables that `run_pipeline.R` should reproduce, taken
-from a verified full 15/15 run. Compare a subsequent run's output against
-these files. Minor drift (sample sizes differing by single digits,
-coefficients differing in the third decimal place) is expected if
-`Parc.csv` or `dette_communes.csv` were re-fetched between runs: both
-originate from sources updated daily by the French government (see
-`/data_prep`), and cohort composition can shift accordingly. Such drift
-reflects a change in the underlying data, not an error in the pipeline. A
-discrepancy larger than this should be investigated.
+from a verified full 15/15 run against the checksummed inputs pinned in
+`/data_prep/checksums.sha256` (data access date 2026-09-22; see that
+document for per-file detail). Run against those same frozen inputs, the
+pipeline is numerically stable: N-treated counts and coefficients in
+these reference tables match the paper's published numbers exactly, or
+to within floating-point summation-order noise. A discrepancy larger than
+that indicates a genuine problem and should be investigated.
+
+Re-fetching `Parc.csv` or `dette_communes.csv` via the scripts in
+`code/shared_data/` retrieves current data from sources the French
+government updates on an ongoing basis, and will shift cohort composition
+and downstream coefficients away from these reference values. This is
+expected when deliberately pulling fresh data to extend the analysis, but
+it means a rerun against re-fetched inputs should not be compared against
+this reference snapshot; compare against a fresh run of the full pipeline
+instead.
 
 | File | Compare against |
 |---|---|

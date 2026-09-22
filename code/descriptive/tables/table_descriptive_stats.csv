@@ -1,16 +1,16 @@
 Category,Statistic,Value
-Installations,Wind parks on record (all statuses),2550
-Installations,Wind parks commissioned,1685
-Installations,"Total installed capacity, commissioned (MW)",22515
-Installations,"Total turbines, commissioned",9322
+Installations,Wind parks on record (all statuses),2556
+Installations,Wind parks commissioned,1667
+Installations,"Total installed capacity, commissioned (MW)",22166
+Installations,"Total turbines, commissioned",9254
 Installations,Median park size (MW),11.5
 Installations,Median turbines per park,5
 Milestones,Permit filed -> authorization granted,1.7 y
 Milestones,Authorization granted -> commissioned,3.0 y
 Milestones,Permit filed -> commissioned,5.0 y
-Milestones,Non-commissioned parks stalled 6+y at last known stage,183 (of 865 never commissioned)
+Milestones,Non-commissioned parks stalled 6+y at last known stage,199 (of 889 never commissioned)
 Geography,Rural communes in sample (density 5-7),29871
-Geography,Treated rural communes (>=1 park commissioned),1735
-Geography,"Top 3 regions, treated rural communes","Hauts-de-France (512), Grand Est (334), Nouvelle-Aquitaine (164)"
+Geography,Treated rural communes (>=1 park commissioned),1716
+Geography,"Top 3 regions, treated rural communes","Hauts-de-France (507), Grand Est (333), Nouvelle-Aquitaine (161)"
 Sample,"Never-treated pool, socioeconomically matched",8284
 Sample,"Never-treated pool, baseline",21744

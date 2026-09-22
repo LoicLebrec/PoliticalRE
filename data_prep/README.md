@@ -12,6 +12,21 @@ with no corresponding script, `checksums.sha256` fixes the exact bytes so
 that a copy can be verified against the version used in this analysis.
 Run `bash verify_checksums.sh` to perform this check.
 
+**Data access date.** The checksums in `checksums.sha256` were verified
+current as of 2026-09-22; this is the effective accession date for every
+frozen input in this document, absent a more specific date noted below.
+`data/parceolien/Parc.csv` carries its own internal `date_maj`
+(last-modified) field per record; the maximum value across all records in
+the checksummed copy is 2026-03-16, indicating the snapshot was obtained
+on or shortly after that date. Several sources in this document (notably
+Géorisques and the data.economie.gouv.fr balances comptables API) are
+updated by their publishers on an ongoing basis. Running the fetch
+scripts described below retrieves data current as of the run date, which
+will generally differ from the frozen snapshot checksummed here and used
+to produce the results reported in the paper. Use the fetch scripts to
+extend or update the analysis with newer data; use the checksummed files
+as distributed to reproduce the paper's published results.
+
 ## 1. Elections (municipal, 2008-2026)
 
 The base panel, `election_data/VariablesY/variableY.csv`, is constructed
