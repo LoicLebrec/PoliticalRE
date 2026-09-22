@@ -10,9 +10,9 @@ history, not a hand-edit. `checksums.sha256` (this folder) fixes the exact
 bytes of every raw/frozen file that has **no** transform script attached,
 so a rerun can be checked against them. Run `bash verify_checksums.sh` to
 check your copy matches. That is the actual guarantee this folder can make:
-every step that touches data is either (a) a script you can read, or (b) a
-frozen file whose checksum is pinned and whose provenance gap is disclosed
-below, not hidden.
+every input is either (a) a script you can read, (b) a file with a
+confirmed public source, or (c) a frozen file whose remaining provenance
+gap is disclosed below, not hidden.
 
 ## 1. Elections (municipal, 2008-2026)
 
@@ -31,6 +31,12 @@ below, not hidden.
   `election_data/data_quentin/2026/build_all_2024_2026.R` downloads from
   `https://static.data.gouv.fr/resources/elections-legislatives-des-30-juin-et-7-juillet-2024-resultats-definitifs-du-1er-tour/20240711-075056/resultats-definitifs-par-communes.csv`
   automatically if the local cache is missing.
+- **Candidate/council turnover**: `code/shared_data/turnover_candidats.csv`
+  -- confirmed source, built by `build_turnover_candidats.py` (kept in the
+  full research repo's history, not part of this package): for
+  2014/2020/2026, computed from `elections_municipales_clean.csv` candidate
+  lists (2026: from the RNE's full elected-council list) as the share of
+  candidate names not present in the same commune the prior election.
 - **Enrichment**: `build_variableY.py` also recomputes `recandidature`
   (candidacy, not just reelection) and `nb_tours` against
   `elections_municipales_clean.csv`, correcting bugs present in the
@@ -38,8 +44,8 @@ below, not hidden.
 
 ## 2. Mayors (biographical panel)
 
-- `data/maires_panel.csv`, built by `scripts/build_maires_panel.py`. This
-  is the best-documented dataset in the repo -- its docstring lists every
+- `data/maires_panel.csv`, built by `code/build_maires_panel.py`. This is
+  the best-documented dataset in the repo -- its docstring lists every
   input file, date, and exact merge/fallback logic.
 - Source: **Répertoire National des Élus** (RNE), published at
   `https://www.data.gouv.fr/fr/datasets/donnees-du-repertoire-national-des-elus/`
@@ -48,7 +54,7 @@ below, not hidden.
 - Vintages used: RNE Dec-2025 snapshot (primary, for 2020 cohort), RNE 2019
   and 2021 snapshots (fallback), plus 2025/2026 files under
   `election_data/data_quentin/`.
-- Merged into the main panel by `simple_regression/enrich_panel_maires.R`.
+- Merged into the main panel by `code/enrich_panel_maires.R`.
 
 ## 3. Wind installations
 
@@ -60,18 +66,33 @@ below, not hidden.
   clean pipeline start point.
 - **Treatment definition**: a commune is "treated" from its first park's
   *commissioning* date (`date_mise_en_service`), computed in
-  `simple_regression/panel/build_panel.R` directly from `Parc.csv` --
-  deliberately not the authorization or construction-start date (see
-  `/reproducibility/README.md` caveat 5).
+  `code/build_panel.R` directly from `Parc.csv` -- deliberately not the
+  authorization or construction-start date (see `/reproducibility/README.md`
+  caveat 5).
 - **ICPE permits (Géorisques)**: `data/parceolien/georisques_icpe_wind.csv`
   -- confirmed source, `data/parceolien/fetch_georisques_icpe.py` line 22:
   `https://georisques.gouv.fr/api/v1/installations_classees`. Run that
   script to regenerate; not part of the 15-table pipeline itself (used for
   cross-checking `Parc.csv`, see `join_coverage.R` in git history).
-- **External wind-speed / vote-share snapshot**:
-  `simple_regression/panel/external_wind_voteshare.csv` -- frozen, no
-  fetch script found (open gap, flagged in-script by `build_panel.R` with
-  a `TODO`). Checksum pinned.
+- **External wind-speed / vote-share snapshot**: `code/external_wind_voteshare.csv`
+  -- two columns, two different confidence levels:
+  - `wind_speed_100m`: very likely the **Global Wind Atlas** (DTU Technical
+    University of Denmark / World Bank Group), which publishes a free
+    100m-height wind speed layer for France at `globalwindatlas.info/area/France`.
+    No fetch script for it exists in this repo, so this is not yet pinned
+    to an exact export/version -- but the column name and height match
+    exactly, and it's the standard free source for this kind of variable.
+  - `voix_gagnant_mean/min/max`: **source unresolved.** No fetch script,
+    no lead found after two searches of the full repo, and general web
+    search doesn't help since this is a study-specific aggregate, not a
+    named public dataset. If you know how these were computed, replace
+    this file with the real script -- until then this is the one column
+    group in the published data whose construction can't be verified from
+    the repo alone.
+  - `build_panel.R` flags this with a `TODO` at the point it merges this
+    file in, and kept the frozen file rather than silently regenerating
+    `panel.csv` without these columns (which previously broke the
+    pipeline once -- see `/reproducibility/README.md` caveat 1).
 
 ## 4. Geography / commune reference data
 
@@ -85,12 +106,11 @@ below, not hidden.
   INSEE product; no scraper in-repo, manual portal download (insee.fr,
   search "grille communale de densité 2021").
 - **Department boundaries**: `data/geo/departements.geojson`. Confirmed
-  source (3 build scripts, e.g.
-  `simple_regression/publication/descriptive/build_parc_map.R` line 72):
-  `https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements.geojson`,
+  source (3 build scripts, e.g. `build_parc_map.R` in the full research
+  repo's history): `https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements.geojson`,
   auto-downloaded and cached on first pipeline run.
 - **Commune geocoding**: `geo.api.gouv.fr/communes` (public API, no key),
-  used by historical enrichment scripts under `simple_regression/archives/phase_1/`.
+  used by historical enrichment scripts (full research repo history only).
 
 ## 5. Socio-demographic (BPE, facility closures/openings)
 
@@ -116,16 +136,58 @@ below, not hidden.
   `reproducibility` pipeline steps 13-14; checksums pinned so at least the
   exact bytes used are verifiable even though the build step isn't).
 
-## 6. Other frozen/raw inputs with no writer script (checksummed, not rebuilt)
+## 6. Income (control variable)
 
-- `simple_regression/CRcreu11/data/turnover_candidats.csv` -- candidate
-  turnover by commune-year. No writer script anywhere in the repo.
-- `simple_regression/CRcreu11/data/invest_communes_2013.csv` -- municipal
-  investment, 2013 baseline. No writer script anywhere in the repo.
-- `simple_regression/CRcreu11/data/control_group.csv` -- unmatched
-  ("baseline") never-treated control pool. No writer script; reverse-
-  engineering attempt and partial-match rule documented in
-  `/reproducibility/README.md` caveat 2.
+- **FiLoSoFi** (Fichier localisé social et fiscal), INSEE's standard
+  commune-level median disposable income product. Used by
+  `code/twfe/build_robustness_combined.R` and
+  `code/heckman_selection_instrument.R` as a baseline-income control
+  (2014 and 2017 snapshots, `FILO_DISP_COM.xls` / `cc_filosofi_2017_COM.CSV`
+  filenames match INSEE's own naming exactly). Read from
+  `election_data/data_quentin/2026/insee_raw/filosofi_series/` -- not part
+  of this repo (raw INSEE download), no fetch script found, standard public
+  INSEE product available from insee.fr.
+
+## 7. Municipal finance and intercommunality (Heckman selection instrument)
+
+All four confirmed by web search against data.gouv.fr / the source portal
+directly (not inferred from filenames alone):
+
+- **`code/shared_data/dette_communes.csv`** -- municipal debt (compte 16x,
+  "Emprunts et dettes assimilées"), 2013 and 2019 snapshots. Confirmed
+  source and working script: `dette_communes_desc.py` (full research
+  repo's history), which calls the **data.economie.gouv.fr API**,
+  dataset family `balances-comptables-des-communes-en-{year}`
+  (`https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/...`).
+- **`code/shared_data/invest_communes_2013.csv` / `invest_communes_2019.csv`**
+  -- municipal investment spending, same years. No writer script found in
+  this repo, but confirmed via web search: data.gouv.fr hosts "Comptes
+  individuels des communes" (DGFiP source, aggregated by OFGL), the same
+  underlying data family as the debt figures above, covering exactly this
+  period and these fields. Treat as strongly likely but not script-pinned.
+- **`code/shared_data/epci_communes_banatic.csv`** -- intercommunality
+  (EPCI) membership and type per commune. Confirmed via web search:
+  **BANATIC** ("Base Nationale sur l'Intercommunalité"), published by
+  France's Direction Générale des Collectivités Locales at
+  `banatic.interieur.gouv.fr`, also mirrored on data.gouv.fr as "Banatic -
+  base nationale sur l'intercommunalité". No writer script in this repo,
+  but the dataset itself is unambiguously identified.
+- **`code/shared_data/closeness.csv`** -- electoral closeness/margin by
+  commune and election, used as a competitiveness control in the same two
+  scripts. Confirmed source and working script: `build_closeness.py` (full
+  research repo's history), computed from `elections_municipales_clean.csv`
+  (list-system vote margins) and the panel's own seat/candidate counts
+  (majoritarian-system seat-threshold margins) -- no external dataset, pure
+  derivation from data already documented in §1. Script not included in
+  this package; the frozen output is checksummed.
+- **`code/shared_data/control_group_baseline.csv`** -- unmatched
+  ("baseline") never-treated control pool. No writer script survives, but
+  author-confirmed: built by filtering the `election_data/data_quentin/`
+  panel with the project's standard control-group filters (rural, never-
+  treated) -- consistent with the reverse-engineered rule (99.98% match,
+  ~6,000-commune residual still unexplained) documented in
+  `/reproducibility/README.md` caveat 2. The exact filter script itself is
+  still missing; only the general method is confirmed.
 
 ## Open gaps (confirm before treating as a clean from-scratch pipeline)
 
@@ -135,17 +197,12 @@ below, not hidden.
 | `data/BPE_adisp/lil-*.csv.zip` | access route inferred from filename only | confirm ADISP/Progedo registration path or public alternative |
 | `data/BPE_adisp/labeled/*` | raw-to-labeled transform script missing | locate (may be in an untracked local copy) or rebuild |
 | `data/BPE_adisp/derived/*` | labeled-to-derived transform script missing | same as above |
-| `simple_regression/panel/external_wind_voteshare.csv` | fetch script/source unknown | identify true source, replace frozen file with a real script |
-| `simple_regression/CRcreu11/data/turnover_candidats.csv` | no writer script | locate or document as permanently frozen |
-| `simple_regression/CRcreu11/data/invest_communes_2013.csv` | no writer script | locate or document as permanently frozen |
-| `simple_regression/CRcreu11/data/control_group.csv` | no writer script | see reverse-engineering notes in `/reproducibility/README.md` |
-| `data/WindFarm_France(Feuil1).csv` | origin unconfirmed (English-header spreadsheet); not used by the 15-table pipeline, superseded by `Parc.csv` | none needed unless this file is revived |
+| `code/external_wind_voteshare.csv` (`voix_gagnant_*` columns only) | source unresolved after two searches | identify true source, replace with a real script |
+| `code/shared_data/invest_communes_2013.csv` / `_2019.csv` | plausible source identified (data.gouv.fr, OFGL/DGFiP), no writer script | pin the exact dataset/API call, add a fetch script |
+| `code/shared_data/epci_communes_banatic.csv` | dataset identified (BANATIC), no writer script | pin the exact vintage/export used, add a fetch script |
+| `code/shared_data/control_group_baseline.csv` | no writer script | see reverse-engineering notes in `/reproducibility/README.md` |
+| `data/WindFarm_France(Feuil1).csv` | origin unconfirmed; not used by the 15-table pipeline, superseded by `Parc.csv` | none needed unless this file is revived |
 | `data/wind/FRA_wind-speed_100m.tif` | likely Global Wind Atlas, unconfirmed; not used by the 15-table pipeline | none needed unless this file is revived |
-
-Files listed as "not used by the 15-table pipeline" showed up in earlier
-exploratory work (`simple_regression/archives/`, `phase_1/`) and are not
-inputs to anything in `/reproducibility`. Listed for completeness, not
-because the current pipeline depends on them.
 
 ## Verifying you have the right bytes
 

@@ -1,37 +1,43 @@
 # Wind farms and local elections in France — replication package
 
-Code to reproduce every table in the paper studying the local political
-effects of communes building or planning wind farms. This is a trimmed,
-publication-focused snapshot: exploratory analysis, drafts, and unrelated
-side-projects from the working research repo are not included here.
+Reproduces every table in the paper studying the local political effects
+of communes building or planning wind farms.
 
-## Start here
+## Reproduce the tables
 
-- **`/reproducibility`** — the 15 tables in the paper, mapped to the exact
-  script that builds each one, plus a runnable pipeline (`run_pipeline.R`)
-  and reference outputs to check your rerun against.
-- **`/data_prep`** — where the raw data comes from, how it's cleaned, and
-  checksums for every raw/frozen input, so the chain from download to
-  final table is traceable end to end.
+```
+git clone <this repo>
+cd PoliticalRE
+Rscript -e 'install.packages("renv"); renv::restore()'
+Rscript reproducibility/run_pipeline.R
+```
 
-## What's in `simple_regression/`
+Runs all 14 build steps in dependency order and stops on the first
+failure. Takes roughly 10 minutes end to end. See
+`reproducibility/README.md` for the full pipeline breakdown, requirements,
+and caveats worth reading before trusting a from-scratch run.
 
-The live analysis scripts `reproducibility/run_pipeline.R` actually calls:
-panel construction (`panel/`, `enrich_panel_maires.R`), the matched control
-group (`robsocioeco/`), the closeness-based selection model
-(`morvan/run_morvan_competitif.R`), and the table-building scripts for each
-method (`publication/{twfe,heckman,callaway_santanna,descriptive,
-robustness}/`, plus the two cross-method summary tables at
-`publication/build_main_results_table.R` and
-`publication/build_baseline_results_table.R`). A handful of frozen data
-files with no writer script (`CRcreu11/data/*.csv`) are included at the
-paths these scripts expect them at — see `/data_prep` for what's known and
-not known about their provenance.
+`reproducibility/table_manifest.csv` maps each of the paper's 15 tables to
+the exact script that builds it, and `reproducibility/reference_output/`
+has known-good output to diff your rerun against.
 
-Figures and the paper manuscript itself aren't included here — this
-package is scoped to the tables.
+## Where the data comes from
 
-## Requirements
+`/data_prep` documents every input this pipeline reads: what it is, where
+to download it, what cleans it, and checksums to verify you have the right
+bytes. A few inputs have no confirmed source or writer script — those gaps
+are disclosed there rather than hidden.
 
-R packages are pinned in `renv.lock`. See `/reproducibility/README.md` for
-the full setup and known caveats before running anything end to end.
+## Layout
+
+- `code/` — the analysis: panel construction, control-group matching, and
+  one subfolder per method (`twfe/`, `heckman/`, `callaway_santanna/`,
+  `descriptive/`, `robustness/`), each producing the tables attributed to
+  it in the paper.
+- `reproducibility/` — the table manifest, pipeline runner, and reference
+  output described above.
+- `data_prep/` — data sources and provenance, described above.
+
+This is a trimmed, publication-scoped snapshot of a larger research
+repository: exploratory analysis, drafts, and unrelated side-projects are
+not included.

@@ -35,3 +35,4 @@ phase_2/dataprod/*.qgz
 *.aux
 *.log
 *.synctex.gz
+__pycache__/
