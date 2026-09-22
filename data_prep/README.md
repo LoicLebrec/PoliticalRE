@@ -46,15 +46,12 @@ Merged into the panel by `code/enrich_panel_maires.R`.
 ## 3. Wind installations
 
 `data/parceolien/Parc.csv`, the wind park registry, comes from
-**Géorisques**'s "Éolien terrestre" database:
-https://www.georisques.gouv.fr/donnees/bases-de-donnees/eolien-terrestre.
-It's updated daily and downloadable as CSV/ZIP, nationally or by region --
-but only through the site's own map interface, not a stable public API or
-static file URL (checked: no matching dataset on data.gouv.fr, no working
-endpoint under georisques.gouv.fr/api/v1/). `fetch_georisques_icpe.py`
-covers a different, scriptable Géorisques endpoint (ICPE permits), which
-is why that one has a fetch script and this one doesn't. Downloading a
-fresh copy means using the site directly.
+**Géorisques**, via its WFS (map data) service rather than a plain file
+download -- `code/shared_data/fetch_parc_georisques.py` hits it directly:
+https://georisques.gouv.fr/services?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=ms:parc_wfs&SRSNAME=urn:ogc:def:crs:EPSG::3857&OUTPUTFORMAT=CSV.
+One request, no pagination, and the columns match Parc.csv exactly (26/26).
+The registry updates daily, so a fresh pull won't be row-identical to any
+older copy -- that's the live data changing, not a mismatch to chase.
 
 A commune counts as "treated" from its first park's *commissioning* date,
 not its authorization date -- see `/reproducibility/README.md` caveat 5.
@@ -180,15 +177,15 @@ do use, for control-group matching.
 ## What's still not scripted
 
 Everything above either has a working fetch/build script now or a
-confirmed source you can pull from by hand. Three things don't, and
+confirmed source you can pull from by hand. Two things don't, and
 probably won't without new information:
 
-- **`Parc.csv`** -- source confirmed (Géorisques), but it's only
-  available through their interactive map tool, not a stable file URL or
-  API.
-- **`epci_communes_banatic.csv`** -- same situation: BANATIC is
-  confirmed, but both the official site and its data.gouv.fr mirror are
-  query tools, not downloadable files.
+- **`epci_communes_banatic.csv`** -- BANATIC is confirmed, but the
+  official site and its data.gouv.fr mirror are both query tools, not
+  downloadable files. Checked the export page's underlying API namespace
+  and its JS bundles for the actual data-fetch call -- it's a Next.js app,
+  the real request most likely only fires after picking options and
+  clicking "export" in the browser, not a plain URL.
 - **`voix_gagnant_mean/min/max`** (in `external_wind_voteshare.csv`) and
   the extra ~5,800-commune gap in `control_group_baseline.csv` -- both
   have a confirmed method (home-made vote counting; a filter rule) but no
