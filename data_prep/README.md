@@ -39,18 +39,20 @@ pattern is implemented in `build_all_2024_2026.R`, which retrieves the
 2024 legislative results from
 `https://static.data.gouv.fr/resources/elections-legislatives-des-30-juin-et-7-juillet-2024-resultats-definitifs-du-1er-tour/20240711-075056/resultats-definitifs-par-communes.csv`.
 
-Candidate and council turnover (`code/shared_data/turnover_candidats.csv`)
-is computed rather than downloaded, but the surviving script does not
-reproduce it. A script named `build_turnover_candidats.py` (present in
-two copies in the full research repository, identical apart from output
-path) computes turnover from candidate lists across consecutive
-elections. Tested directly: its output uses different column semantics
-(`n_candidats_t`/`n_candidats_prev`) and different values from the
-checksummed file (`n_elus_t`/`n_elus_prev`), indicating the checksummed
-file was built from elected-council rosters across all years, not
-candidate lists, by a different, non-surviving script. This script is
-not included in this repository, to avoid presenting a non-matching
-computation as a working reconstruction.
+Elected-council turnover (`code/shared_data/turnover_candidats.csv`) is
+computed rather than downloaded, by `code/shared_data/build_turnover_candidats.py`.
+It reconstructs each commune's council for 2008-2026 from three source
+types depending on electoral system and year: round 1/round 2
+vote-threshold reconstruction for majoritarian communes (fewer than 1,000
+registered voters), "liste des élus" XLS files for list-system communes
+in 2014, and RNE council snapshots for 2020 and 2026. Turnover is the
+share of council names not present in the same commune's council at the
+prior election. Verified byte-for-byte identical to the checksummed file
+(after CRLF normalization, applied automatically by git on commit) before
+being added to this package. An earlier, structurally similar script
+found in the full research repository (`build_turnover_candidats.py`,
+computing candidate-list rather than elected-council turnover) was tested
+and found not to reproduce this file; it is not included here.
 
 `build_variableY.py` additionally corrects two errors present in the
 source data: it recomputes `recandidature` (candidacy, as distinct from
@@ -236,7 +238,7 @@ matching.
 
 ## Outstanding items
 
-Four items remain unresolved at the time of writing:
+Three items remain unresolved at the time of writing:
 
 1. The extraction script for `wind_speed_100m` (Section 3). The source is
    confirmed (Global Wind Atlas); implementation requires a raster
@@ -245,17 +247,13 @@ Four items remain unresolved at the time of writing:
    `control_group_baseline.csv` (Section 7). Two candidate explanations
    (commune fusion, department treatment count) have been tested and
    ruled out (see above).
-3. The construction script for `turnover_candidats.csv` (Section 1). A
-   plausible candidate script was tested directly and found to compute a
-   different quantity (candidate turnover, not elected-council turnover)
-   than the checksummed file contains.
-4. The construction script for `closeness.csv` (Section 7). A plausible
-   candidate script exists but depends on additional source files (a
-   population comparateur extract, a separate 2020 seat-count file) not
-   yet located; it has not been tested and is not presented as verified.
+3. The construction script for `closeness.csv` (Section 7). A candidate
+   script exists but depends on additional source files (a population
+   comparateur extract, a separate 2020 seat-count file) not yet located;
+   it has not been tested and is not presented as verified.
 
 None of these items affects the validity of the results reported in the
-paper; all four concern exact reproducibility of auxiliary input files
+paper; all three concern exact reproducibility of auxiliary input files
 from their original construction process.
 
 ## Verifying data integrity
