@@ -142,13 +142,13 @@ it's a real starting point for whoever narrows this down, not a guess
 from nothing.
 
 **`code/shared_data/epci_communes_banatic.csv`** -- which intercommunality
-group each commune belongs to. This is **BANATIC**, the government's own
-database for this exact question: https://www.banatic.interieur.gouv.fr,
-also listed on data.gouv.fr at
-https://www.data.gouv.fr/datasets/banatic-base-nationale-sur-lintercommunalit
--- but neither one exposes a plain downloadable file or API; both hand you
-an interactive query tool. No fetch script for this one; download it by
-hand from either site.
+group each commune belongs to, from **BANATIC**.
+`code/shared_data/fetch_epci_banatic.py` pulls it from data.gouv.fr's
+"Base nationale sur les intercommunalités" dataset, resource
+`perimetre-epci-a-fp.csv` -- confirmed byte-for-byte identical to the
+existing file (checked directly, not just close). That dataset page also
+has BANATIC's own official export and a plain commune/SIREN table, if
+either turns out more useful for something else later.
 
 **`code/shared_data/closeness.csv`** -- how close each election was, by
 commune. Also home-made: `build_closeness.py` computes it from our own
@@ -176,21 +176,22 @@ do use, for control-group matching.
 
 ## What's still not scripted
 
-Everything above either has a working fetch/build script now or a
-confirmed source you can pull from by hand. Two things don't, and
-probably won't without new information:
+Everything with a raw external source now has a working fetch script,
+checked against the existing files, not just plausible. Two things are
+left, and they're a different kind of gap -- not a missing download, a
+missing script for something that was computed in-house:
 
-- **`epci_communes_banatic.csv`** -- BANATIC is confirmed, but the
-  official site and its data.gouv.fr mirror are both query tools, not
-  downloadable files. Checked the export page's underlying API namespace
-  and its JS bundles for the actual data-fetch call -- it's a Next.js app,
-  the real request most likely only fires after picking options and
-  clicking "export" in the browser, not a plain URL.
-- **`voix_gagnant_mean/min/max`** (in `external_wind_voteshare.csv`) and
-  the extra ~5,800-commune gap in `control_group_baseline.csv` -- both
-  have a confirmed method (home-made vote counting; a filter rule) but no
-  surviving script to run. The numbers work, they're just not
-  regeneratable from scratch without rewriting that logic.
+- **`voix_gagnant_mean/min/max`** (in `external_wind_voteshare.csv`) --
+  counted by hand from our own election data, script not preserved.
+- **The extra ~5,800-commune gap in `control_group_baseline.csv`** --
+  the main filter rule is confirmed and scripted
+  (`build_control_group_baseline.R`), but it over-generates relative to
+  the original file by that many communes, and the exact extra filter
+  that trims it down hasn't been identified.
+
+Neither affects using the data as it stands now -- both are about being
+able to regenerate these exact files from nothing, not about anything
+being wrong with them.
 
 ## Checking your copy
 
