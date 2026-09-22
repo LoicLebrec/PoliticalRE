@@ -194,13 +194,18 @@ provides BANATIC's official pre-generated export and a commune/SIREN
 correspondence table, retained for reference.
 
 **`code/shared_data/closeness.csv`** — electoral closeness by commune and
-election. Not an external dataset: a candidate script, `build_closeness.py`,
-derives a comparable measure from the project's own election data (vote
-margins for list-system elections, seat-threshold margins for
-majoritarian elections), but depends on additional source files not yet
-located in this repository (a population comparateur extract, a separate
-2020 seat-count file) and has not been tested against the checksummed
-file. See Outstanding items below.
+election. Not an external dataset: `code/shared_data/build_closeness.py`
+derives it from the project's own election data — vote margins for
+list-system elections; for majoritarian elections, the seat-threshold
+margin (2014/2020) or, for 2008 only, a winner-share fallback (the source
+data for that year records only elected candidates, so the seat-threshold
+candidate is unavailable). Council size, needed for the seat-threshold
+margin, is reconstructed from population for 2008/2014 and taken from
+real elected-council counts for 2020
+(`code/shared_data/real_seats_2020.csv`, sourced from the Répertoire
+National des Élus via a data.cquest.org archive snapshot dated
+2020-12-02). Verified byte-for-byte identical to the checksummed file
+(after CRLF normalization) before being added to this package.
 
 **`code/shared_data/control_group_baseline.csv`** — the unmatched control
 pool. No original construction script survives. The general method is
@@ -238,7 +243,7 @@ matching.
 
 ## Outstanding items
 
-Three items remain unresolved at the time of writing:
+Two items remain unresolved at the time of writing:
 
 1. The extraction script for `wind_speed_100m` (Section 3). The source is
    confirmed (Global Wind Atlas); implementation requires a raster
@@ -247,14 +252,10 @@ Three items remain unresolved at the time of writing:
    `control_group_baseline.csv` (Section 7). Two candidate explanations
    (commune fusion, department treatment count) have been tested and
    ruled out (see above).
-3. The construction script for `closeness.csv` (Section 7). A candidate
-   script exists but depends on additional source files (a population
-   comparateur extract, a separate 2020 seat-count file) not yet located;
-   it has not been tested and is not presented as verified.
 
-None of these items affects the validity of the results reported in the
-paper; all three concern exact reproducibility of auxiliary input files
-from their original construction process.
+Neither item affects the validity of the results reported in the paper;
+both concern exact reproducibility of an auxiliary input file from its
+original source rather than the correctness of any result.
 
 ## Verifying data integrity
 
