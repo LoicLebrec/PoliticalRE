@@ -59,11 +59,12 @@ gap is disclosed below, not hidden.
 ## 3. Wind installations
 
 - **Wind park registry**: `data/parceolien/Parc.csv` -- author-confirmed
-  source: **Géorisques** (georisques.gouv.fr), same portal as the ICPE
-  permits file below. No fetch script for this exact export is in this
-  repo (only `fetch_georisques_icpe.py`, which hits a related but
-  different endpoint -- see below); pin the exact Géorisques dataset/export
-  used before treating this as a from-scratch download step.
+  source: **Géorisques**, "Éolien terrestre" database --
+  https://www.georisques.gouv.fr/donnees/bases-de-donnees/eolien-terrestre
+  (CSV/ZIP, updated daily, national or regional scale). No fetch script
+  for this exact export is in this repo (only `fetch_georisques_icpe.py`,
+  which hits a related but different endpoint, the general ICPE API --
+  see below); pin the exact export date/vintage used.
 - **Treatment definition**: a commune is "treated" from its first park's
   *commissioning* date (`date_mise_en_service`), computed in
   `code/build_panel.R` directly from `Parc.csv` -- deliberately not the
@@ -78,10 +79,11 @@ gap is disclosed below, not hidden.
   -- two columns, two different confidence levels:
   - `wind_speed_100m`: very likely the **Global Wind Atlas** (DTU Technical
     University of Denmark / World Bank Group), which publishes a free
-    100m-height wind speed layer for France at `globalwindatlas.info/area/France`.
-    No fetch script for it exists in this repo, so this is not yet pinned
-    to an exact export/version -- but the column name and height match
-    exactly, and it's the standard free source for this kind of variable.
+    100m-height wind speed layer for France at
+    https://globalwindatlas.info/area/France. No fetch script for it
+    exists in this repo, so this is not yet pinned to an exact
+    export/version -- but the column name and height match exactly, and
+    it's the standard free source for this kind of variable.
   - `voix_gagnant_mean/min/max`: **author-confirmed: home-made**, computed
     in-house by counting votes directly from this project's own election
     data (§1) -- not an external download. The exact aggregation script
@@ -98,18 +100,22 @@ gap is disclosed below, not hidden.
 - **INSEE COG (commune codes/names) 2024**: `data/1.commune/cog_commune_2024.csv`,
   `cog_mvt_commune_2024.csv`. Confirmed direct public download (from
   `communeinstallation.R`, still in git history at the repo root):
-  `https://www.insee.fr/fr/statistiques/fichier/7766585/v_commune_2024.csv`
+  https://www.insee.fr/fr/statistiques/fichier/7766585/v_commune_2024.csv
   and `.../v_mvt_commune_2024.csv`.
 - **INSEE density grid** (`grille de densité`, 7 levels):
   `data/insee_rural/grille_densite_7_niveaux_2021.xlsx`. Standard public
-  INSEE product; no scraper in-repo, manual portal download (insee.fr,
-  search "grille communale de densité 2021").
+  INSEE product, landing page: https://www.insee.fr/fr/information/8571524
+  ("La grille de densité"); no scraper in-repo, manual download from that
+  page for the 2021 vintage specifically.
 - **Department boundaries**: `data/geo/departements.geojson`. Confirmed
   source (3 build scripts, e.g. `build_parc_map.R` in the full research
-  repo's history): `https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements.geojson`,
+  repo's history):
+  https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements.geojson,
   auto-downloaded and cached on first pipeline run.
 - **Commune geocoding**: `geo.api.gouv.fr/communes` (public API, no key),
   used by historical enrichment scripts (full research repo history only).
+- **FiLoSoFi** (household income, see §6): landing page
+  https://www.insee.fr/fr/metadonnees/source/serie/s1172.
 
 ## 5. Socio-demographic (BPE, facility closures/openings)
 
@@ -120,14 +126,16 @@ closures, CADA (asylum reception center) openings, and a 12-facility
 "desertification" basket.
 
 - **Raw microdata**: `data/BPE_adisp/lil-XXXX.csv.zip` (9 files, one per
-  BPE vintage 2007-2020). `lil-XXXX` are ADISP/Réseau Quetelet-Progedo
-  catalogue identifiers -- **this is an inference from the folder name and
-  file-naming convention, not a confirmed source** (no README found in
-  `data/BPE_adisp/`). BPE (Base Permanente des Équipements) microdata at
-  this vintage granularity is typically restricted-access (registration
-  required via a Progedo/ADISP-style portal), unlike the aggregated BPE
-  data INSEE publishes openly -- confirm the exact access route before
-  relying on this for a fresh pull.
+  BPE vintage 2007-2020). **Confirmed via web search** (not just filename
+  inference): `lil-XXXX` are exact Progedo/ADISP catalogue identifiers --
+  https://data.progedo.fr/series/adisp/base-permanente-des-equipements-bpe
+  is the series landing page, and each vintage has its own catalogue entry,
+  e.g. `lil-0423` = BPE 2007, `lil-1444` = BPE 2019, `lil-1483` = BPE 2020
+  (pattern: `https://data.progedo.fr/studies/doi/10.13144/lil-XXXX` or the
+  legacy `http://www.progedo-adisp.fr/enquetes/XML/lil.php?lil=lil-XXXX`).
+  This is restricted-access microdata (registration required via Progedo),
+  unlike the aggregated BPE data INSEE publishes openly at
+  https://www.insee.fr/fr/information/6665194.
 - **Labeled intermediate**: `data/BPE_adisp/labeled/bpeXX_ensemble_labeled.csv`
   (2007-2020, one file per vintage). Transform script from raw `lil-*.zip`
   to `labeled/` **not found in the active tree** (open gap).
@@ -144,14 +152,14 @@ closures, CADA (asylum reception center) openings, and a 12-facility
 ## 6. Income (control variable)
 
 - **FiLoSoFi** (Fichier localisé social et fiscal), INSEE's standard
-  commune-level median disposable income product. Used by
+  commune-level median disposable income product --
+  https://www.insee.fr/fr/metadonnees/source/serie/s1172. Used by
   `code/twfe/build_robustness_combined.R` and
   `code/heckman_selection_instrument.R` as a baseline-income control
   (2014 and 2017 snapshots, `FILO_DISP_COM.xls` / `cc_filosofi_2017_COM.CSV`
   filenames match INSEE's own naming exactly). Read from
   `election_data/data_quentin/2026/insee_raw/filosofi_series/` -- not part
-  of this repo (raw INSEE download), no fetch script found, standard public
-  INSEE product available from insee.fr.
+  of this repo (raw INSEE download), no fetch script found.
 
 ## 7. Municipal finance and intercommunality (Heckman selection instrument)
 
@@ -161,22 +169,30 @@ directly (not inferred from filenames alone):
 - **`code/shared_data/dette_communes.csv`** -- municipal debt (compte 16x,
   "Emprunts et dettes assimilées"), 2013 and 2019 snapshots. Confirmed
   source and working script: `dette_communes_desc.py` (full research
-  repo's history), which calls the **data.economie.gouv.fr API**,
-  dataset family `balances-comptables-des-communes-en-{year}`
-  (`https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/...`).
+  repo's history), which calls the **data.economie.gouv.fr API**, dataset
+  family `balances-comptables-des-communes-en-{year}`:
+  https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/balances-comptables-des-communes-en-2019/records
+  (swap the year in the URL for other vintages).
 - **`code/shared_data/invest_communes_2013.csv` / `invest_communes_2019.csv`**
   -- municipal investment spending, same years. No writer script found in
   this repo, but confirmed via web search: data.gouv.fr hosts "Comptes
-  individuels des communes" (DGFiP source, aggregated by OFGL), the same
-  underlying data family as the debt figures above, covering exactly this
-  period and these fields. Treat as strongly likely but not script-pinned.
+  individuels des communes" (DGFiP source, aggregated by OFGL):
+  https://www.data.gouv.fr/datasets/comptes-individuels-des-communes
+  (historical vintages back to 2012 are attached to this same dataset
+  page) -- same underlying data family as the debt figures above, covering
+  exactly this period and these fields. Treat as strongly likely but not
+  script-pinned: confirm the exact file/vintage before adding a fetch
+  script.
 - **`code/shared_data/epci_communes_banatic.csv`** -- intercommunality
   (EPCI) membership and type per commune. Confirmed via web search:
   **BANATIC** ("Base Nationale sur l'Intercommunalité"), published by
   France's Direction Générale des Collectivités Locales at
-  `banatic.interieur.gouv.fr`, also mirrored on data.gouv.fr as "Banatic -
-  base nationale sur l'intercommunalité". No writer script in this repo,
-  but the dataset itself is unambiguously identified.
+  https://www.banatic.interieur.gouv.fr, also mirrored on data.gouv.fr:
+  https://www.data.gouv.fr/datasets/banatic-base-nationale-sur-lintercommunalit
+  (the data.gouv.fr version re-encodes each vintage in UTF-8 and keeps a
+  full history, matching this file's `latin1`-encoded read in-script --
+  worth switching to the UTF-8 mirror). No writer script in this repo, but
+  the dataset itself is unambiguously identified.
 - **`code/shared_data/closeness.csv`** -- electoral closeness/margin by
   commune and election, used as a competitiveness control in the same two
   scripts. Confirmed source and working script: `build_closeness.py` (full
@@ -202,17 +218,39 @@ directly (not inferred from filenames alone):
   unidentified filter -- so the general method is confirmed, exact
   byte-for-byte regeneration is not yet possible.
 
-## Open gaps (confirm before treating as a clean from-scratch pipeline)
+## Next steps
 
-| File | Gap | Suggested next step |
-|---|---|---|
-| `data/parceolien/Parc.csv` | source confirmed (Géorisques), exact export/URL not pinned | pin the exact Géorisques dataset/export, add a fetch script |
-| `data/BPE_adisp/lil-*.csv.zip` | access route inferred from filename only | confirm ADISP/Progedo registration path or public alternative |
-| `data/BPE_adisp/labeled/*` | raw-to-labeled transform script missing | locate (may be in an untracked local copy) or rebuild |
-| `data/BPE_adisp/derived/*` | labeled-to-derived transform script missing | same as above |
-| `code/shared_data/invest_communes_2013.csv` / `_2019.csv` | plausible source identified (data.gouv.fr, OFGL/DGFiP), no writer script | pin the exact dataset/API call, add a fetch script |
-| `code/shared_data/epci_communes_banatic.csv` | dataset identified (BANATIC), no writer script | pin the exact vintage/export used, add a fetch script |
-| `code/shared_data/control_group_baseline.csv` | method confirmed, exact script lost | see explicit method notes above and reverse-engineering notes in `/reproducibility/README.md` |
+Everything below has a confirmed or strongly-likely source now (see
+sources table). What's left is turning each "download by hand once" into
+a pinned, scripted fetch -- in priority order (highest-impact / easiest
+first):
+
+1. **Pin `Parc.csv`'s exact export.** Source confirmed
+   (georisques.gouv.fr/donnees/bases-de-donnees/eolien-terrestre), just
+   need the exact download date/vintage this file was pulled, then a
+   fetch script analogous to `fetch_georisques_icpe.py`.
+2. **Add a fetch script for `dette_communes.csv`.** Source and exact API
+   confirmed (see §7 link); `dette_communes_desc.py` already exists in the
+   full research repo, just needs porting into this package.
+3. **Confirm and pin `invest_communes_2013/2019.csv`.** Very likely
+   data.gouv.fr's "Comptes individuels des communes" (link in §7) -- pull
+   the 2013 and 2019 files from that dataset's historical attachments and
+   diff a few rows against the checksummed file to confirm the match,
+   then add a fetch script.
+4. **Confirm and pin `epci_communes_banatic.csv`.** Dataset confirmed
+   (BANATIC, link in §7); this file is `latin1`-encoded but the
+   data.gouv.fr mirror is UTF-8 -- check whether it's the same vintage,
+   and consider switching the read encoding once confirmed.
+5. **Locate or rebuild the BPE `labeled/` and `derived/` transform
+   scripts.** The raw source is now fully confirmed (§5), but the two
+   transform steps from raw `lil-*.zip` to what the pipeline actually
+   reads are still missing. Worth checking for them one more time outside
+   this repo before rebuilding from scratch.
+6. **`control_group_baseline.csv`'s ~6,000-commune residual.** The
+   method is confirmed (rural + never-treated filter on the project's own
+   panel, §7); what's still unexplained is the extra filter that trims
+   ~6,000 communes below what that rule alone produces. Not blocking
+   (the file works as-is), just not byte-for-byte regeneratable yet.
 
 Two files formerly listed here were confirmed unused by the author and
 removed from tracking: `data/WindFarm_France(Feuil1).csv` (superseded by
