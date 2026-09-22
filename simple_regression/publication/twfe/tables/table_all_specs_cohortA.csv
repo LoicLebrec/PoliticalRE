@@ -1,0 +1,112 @@
+Outcome,Category,Specification,N,Estimate,SE,CI_low,CI_high,p,Signif
+Candidacy (pp),Reference,Reference (Full Cohort A),454,0.46,3.3,-6,6.93,0.888,FALSE
+Candidacy (pp),Milestones,Application filed,600,0.51,2.74,-4.86,5.87,0.854,FALSE
+Candidacy (pp),Milestones,Authorization granted,610,-1.26,2.84,-6.83,4.3,0.656,FALSE
+Candidacy (pp),Milestones,Commissioning,454,0.46,3.3,-6,6.93,0.888,FALSE
+Candidacy (pp),Regions,Brittany,42,9.48,12.08,-14.19,33.15,0.433,FALSE
+Candidacy (pp),Regions,Grand Est,126,-5.8,6.42,-18.38,6.77,0.366,FALSE
+Candidacy (pp),Regions,Hauts-de-France,113,-0.64,6.17,-12.74,11.45,0.917,FALSE
+Candidacy (pp),Regions,Normandy,27,12.07,13.38,-14.15,38.3,0.367,FALSE
+Candidacy (pp),Regions,Other regions,146,1.59,5.93,-10.04,13.22,0.788,FALSE
+Candidacy (pp),Electoral system,List ballot,6,-22.46,31.09,-83.4,38.47,0.472,FALSE
+Candidacy (pp),Electoral system,Plurality/individual,448,0.86,3.31,-5.62,7.35,0.794,FALSE
+Candidacy (pp),Mayor stability,Mayor turnover 2008,171,-0.45,4.37,-9.02,8.12,0.918,FALSE
+Candidacy (pp),Mayor stability,Mayor turnover 2014,113,3.37,4.17,-4.81,11.54,0.419,FALSE
+Candidacy (pp),Municipality size,"< 1,000 registered voters",401,1.68,3.42,-5.03,8.39,0.624,FALSE
+Candidacy (pp),Municipality size,">= 1,000 registered voters",53,-7.95,11.11,-29.72,13.81,0.474,FALSE
+Candidacy (pp),Installation power,Large >= 7 MW,229,1.84,4.41,-6.81,10.49,0.677,FALSE
+Candidacy (pp),Installation power,Small < 7 MW,225,-0.9,4.74,-10.2,8.39,0.849,FALSE
+Candidacy (pp),Cohorts,B 2014-2020,592,-2.02,2.88,-7.66,3.62,0.483,FALSE
+Candidacy (pp),Cohorts,C 2020-2026,292,1.19,3.91,-6.48,8.87,0.76,FALSE
+Candidacy (pp),Competitiveness,Competitive,206,0.72,4.29,-7.69,9.13,0.866,FALSE
+Candidacy (pp),Competitiveness,Non-competitive,248,-1.48,4.81,-10.91,7.95,0.758,FALSE
+Reelection (pp),Reference,Reference (Full Cohort A),482,0.67,3.35,-5.89,7.23,0.841,FALSE
+Reelection (pp),Milestones,Application filed,638,-0.46,2.83,-6.01,5.09,0.872,FALSE
+Reelection (pp),Milestones,Authorization granted,647,-1.01,2.89,-6.68,4.66,0.727,FALSE
+Reelection (pp),Milestones,Commissioning,482,0.67,3.35,-5.89,7.23,0.841,FALSE
+Reelection (pp),Regions,Brittany,45,16.04,11.32,-6.16,38.23,0.157,FALSE
+Reelection (pp),Regions,Grand Est,137,-4.42,6.32,-16.81,7.96,0.484,FALSE
+Reelection (pp),Regions,Hauts-de-France,115,-4.41,6.89,-17.92,9.1,0.522,FALSE
+Reelection (pp),Regions,Normandy,27,9.97,15.5,-20.4,40.35,0.52,FALSE
+Reelection (pp),Regions,Other regions,158,3.47,5.77,-7.84,14.77,0.548,FALSE
+Reelection (pp),Electoral system,List ballot,7,7.94,32.58,-55.91,71.8,0.808,FALSE
+Reelection (pp),Electoral system,Plurality/individual,475,0.57,3.37,-6.03,7.18,0.865,FALSE
+Reelection (pp),Mayor stability,Mayor turnover 2008,178,2.66,3.53,-4.26,9.59,0.451,FALSE
+Reelection (pp),Mayor stability,Mayor turnover 2014,114,0,NA,NA,NA,NA,NA
+Reelection (pp),Municipality size,"< 1,000 registered voters",425,1.8,3.49,-5.04,8.64,0.606,FALSE
+Reelection (pp),Municipality size,">= 1,000 registered voters",57,-7.02,11.06,-28.69,14.65,0.525,FALSE
+Reelection (pp),Installation power,Large >= 7 MW,243,3.18,4.57,-5.77,12.14,0.486,FALSE
+Reelection (pp),Installation power,Small < 7 MW,239,-1.9,4.73,-11.17,7.38,0.688,FALSE
+Reelection (pp),Cohorts,B 2014-2020,623,-3.08,3.03,-9.01,2.85,0.309,FALSE
+Reelection (pp),Cohorts,C 2020-2026,292,3.69,4.41,-4.94,12.33,0.402,FALSE
+Reelection (pp),Competitiveness,Competitive,219,-1.62,4.21,-9.86,6.63,0.7,FALSE
+Reelection (pp),Competitiveness,Non-competitive,263,1.44,4.98,-8.33,11.21,0.773,FALSE
+Winner vote share (% valid votes),Reference,Reference (Full Cohort A),497,-0.26,0.75,-1.73,1.21,0.731,FALSE
+Winner vote share (% valid votes),Milestones,Application filed,662,-0.11,0.61,-1.31,1.09,0.857,FALSE
+Winner vote share (% valid votes),Milestones,Authorization granted,674,-0.72,0.61,-1.91,0.47,0.238,FALSE
+Winner vote share (% valid votes),Milestones,Commissioning,497,-0.26,0.75,-1.73,1.21,0.731,FALSE
+Winner vote share (% valid votes),Regions,Brittany,46,4.46,2.77,-0.98,9.9,0.108,FALSE
+Winner vote share (% valid votes),Regions,Grand Est,139,0.53,1.18,-1.79,2.85,0.657,FALSE
+Winner vote share (% valid votes),Regions,Hauts-de-France,116,-1.17,1.34,-3.81,1.46,0.384,FALSE
+Winner vote share (% valid votes),Regions,Normandy,28,-1.32,4.09,-9.34,6.7,0.747,FALSE
+Winner vote share (% valid votes),Regions,Other regions,168,-1.33,1.42,-4.12,1.45,0.348,FALSE
+Winner vote share (% valid votes),Electoral system,List ballot,10,5.65,6.35,-6.79,18.09,0.375,FALSE
+Winner vote share (% valid votes),Electoral system,Plurality/individual,487,-0.36,0.76,-1.84,1.12,0.631,FALSE
+Winner vote share (% valid votes),Mayor stability,Mayor turnover 2008,178,0.26,1.3,-2.28,2.81,0.839,FALSE
+Winner vote share (% valid votes),Mayor stability,Mayor turnover 2014,114,-0.99,1.64,-4.21,2.23,0.546,FALSE
+Winner vote share (% valid votes),Mayor stability,Same mayor 2008-2014,188,0.06,1.02,-1.93,2.06,0.95,FALSE
+Winner vote share (% valid votes),Municipality size,"< 1,000 registered voters",434,0.28,0.73,-1.15,1.71,0.703,FALSE
+Winner vote share (% valid votes),Municipality size,">= 1,000 registered voters",63,-1.91,3.04,-7.86,4.04,0.528,FALSE
+Winner vote share (% valid votes),Installation power,Large >= 7 MW,250,-0.38,0.99,-2.33,1.57,0.705,FALSE
+Winner vote share (% valid votes),Installation power,Small < 7 MW,247,-0.14,1.1,-2.29,2,0.896,FALSE
+Winner vote share (% valid votes),Cohorts,B 2014-2020,637,-0.99,0.71,-2.38,0.4,0.163,FALSE
+Winner vote share (% valid votes),Cohorts,C 2020-2026,329,0.25,1.08,-1.87,2.37,0.816,FALSE
+Winner vote share (% valid votes),Competitiveness,Competitive,222,-0.05,0.95,-1.91,1.8,0.956,FALSE
+Winner vote share (% valid votes),Competitiveness,Non-competitive,275,-1.71,1.03,-3.74,0.31,0.098,FALSE
+Abstention (% registered),Reference,Reference (Full Cohort A),497,0.79,0.34,0.13,1.45,0.019,TRUE
+Abstention (% registered),Milestones,Application filed,662,0.21,0.28,-0.34,0.76,0.45,FALSE
+Abstention (% registered),Milestones,Authorization granted,674,-0.02,0.29,-0.59,0.54,0.931,FALSE
+Abstention (% registered),Milestones,Commissioning,497,0.79,0.34,0.13,1.45,0.019,TRUE
+Abstention (% registered),Regions,Brittany,46,1.09,0.86,-0.6,2.78,0.208,FALSE
+Abstention (% registered),Regions,Grand Est,139,1.28,0.71,-0.11,2.67,0.07,FALSE
+Abstention (% registered),Regions,Hauts-de-France,116,1.25,0.67,-0.07,2.56,0.063,FALSE
+Abstention (% registered),Regions,Normandy,28,0,1.53,-3,3.01,0.998,FALSE
+Abstention (% registered),Regions,Other regions,168,0.06,0.56,-1.04,1.16,0.914,FALSE
+Abstention (% registered),Electoral system,List ballot,10,-0.12,1.94,-3.92,3.68,0.952,FALSE
+Abstention (% registered),Electoral system,Plurality/individual,487,0.83,0.34,0.16,1.49,0.015,TRUE
+Abstention (% registered),Mayor stability,Mayor turnover 2008,178,0.75,0.53,-0.29,1.79,0.158,FALSE
+Abstention (% registered),Mayor stability,Mayor turnover 2014,114,0.83,0.74,-0.63,2.28,0.267,FALSE
+Abstention (% registered),Mayor stability,Same mayor 2008-2014,188,1.06,0.55,-0.01,2.14,0.053,FALSE
+Abstention (% registered),Municipality size,"< 1,000 registered voters",434,1.03,0.36,0.33,1.74,0.004,TRUE
+Abstention (% registered),Municipality size,">= 1,000 registered voters",63,-0.65,0.88,-2.37,1.08,0.463,FALSE
+Abstention (% registered),Installation power,Large >= 7 MW,250,0.69,0.44,-0.17,1.55,0.116,FALSE
+Abstention (% registered),Installation power,Small < 7 MW,247,0.89,0.49,-0.08,1.86,0.073,FALSE
+Abstention (% registered),Cohorts,B 2014-2020,637,-0.88,0.42,-1.71,-0.05,0.038,TRUE
+Abstention (% registered),Cohorts,C 2020-2026,332,0.36,0.62,-0.86,1.57,0.566,FALSE
+Abstention (% registered),Competitiveness,Competitive,222,1.51,0.53,0.48,2.55,0.004,TRUE
+Abstention (% registered),Competitiveness,Non-competitive,275,-0.08,0.43,-0.92,0.76,0.855,FALSE
+Candidate turnover (%),Milestones,Application filed,571,0,NA,NA,NA,NA,NA
+Candidate turnover (%),Milestones,Authorization granted,584,0,NA,NA,NA,NA,NA
+Candidate turnover (%),Cohorts,B 2014-2020,621,0.91,1.12,-1.29,3.12,0.415,FALSE
+Candidate turnover (%),Cohorts,C 2020-2026,326,0.17,1.34,-2.46,2.8,0.898,FALSE
+Incumbent vote share (% valid votes),Reference,Reference (Full Cohort A),355,0.18,1.27,-2.3,2.67,0.885,FALSE
+Incumbent vote share (% valid votes),Milestones,Application filed,464,0.39,0.95,-1.48,2.26,0.679,FALSE
+Incumbent vote share (% valid votes),Milestones,Authorization granted,465,0.78,1,-1.17,2.74,0.431,FALSE
+Incumbent vote share (% valid votes),Milestones,Commissioning,355,0.18,1.27,-2.3,2.67,0.885,FALSE
+Incumbent vote share (% valid votes),Regions,Brittany,30,0.2,4.74,-9.08,9.49,0.966,FALSE
+Incumbent vote share (% valid votes),Regions,Grand Est,104,3.1,2.06,-0.93,7.13,0.132,FALSE
+Incumbent vote share (% valid votes),Regions,Hauts-de-France,93,-0.09,2.23,-4.45,4.28,0.969,FALSE
+Incumbent vote share (% valid votes),Regions,Normandy,20,-11.05,7.11,-24.98,2.88,0.121,FALSE
+Incumbent vote share (% valid votes),Regions,Other regions,108,-0.69,2.61,-5.81,4.43,0.792,FALSE
+Incumbent vote share (% valid votes),Electoral system,Plurality/individual,352,0.27,1.27,-2.23,2.76,0.834,FALSE
+Incumbent vote share (% valid votes),Mayor stability,Mayor turnover 2008,141,4.44,4.42,-4.22,13.11,0.316,FALSE
+Incumbent vote share (% valid votes),Mayor stability,Mayor turnover 2014,26,-0.01,5.09,-9.99,9.96,0.998,FALSE
+Incumbent vote share (% valid votes),Mayor stability,Same mayor 2008-2014,188,0.06,1.02,-1.93,2.06,0.95,FALSE
+Incumbent vote share (% valid votes),Municipality size,"< 1,000 registered voters",320,0.94,1.18,-1.36,3.25,0.423,FALSE
+Incumbent vote share (% valid votes),Municipality size,">= 1,000 registered voters",35,-7.06,7.58,-21.92,7.8,0.353,FALSE
+Incumbent vote share (% valid votes),Installation power,Large >= 7 MW,182,0.55,1.59,-2.56,3.67,0.727,FALSE
+Incumbent vote share (% valid votes),Installation power,Small < 7 MW,173,-0.22,1.94,-4.01,3.58,0.912,FALSE
+Incumbent vote share (% valid votes),Cohorts,B 2014-2020,429,1.5,1.35,-1.14,4.14,0.266,FALSE
+Incumbent vote share (% valid votes),Cohorts,C 2020-2026,156,0.48,2.05,-3.53,4.5,0.813,FALSE
+Incumbent vote share (% valid votes),Competitiveness,Competitive,166,0.12,1.45,-2.73,2.96,0.935,FALSE
+Incumbent vote share (% valid votes),Competitiveness,Non-competitive,189,-0.22,2.07,-4.28,3.84,0.915,FALSE

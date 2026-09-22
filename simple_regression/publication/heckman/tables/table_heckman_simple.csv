@@ -1,0 +1,7 @@
+Cohort,Election,Equation,N,N_treated,Estimate,SE,CI_low,CI_high,p,rho,Signif
+A,2014,Selection (candidacy),6910,381,0.045,0.071,-0.095,0.185,0.526,0.053,
+A,2014,Outcome (reelection | ran again),6910,381,0.006,0.021,-0.034,0.047,0.753,0.053,
+B,2020,Selection (candidacy),7415,496,-0.082,0.062,-0.203,0.038,0.181,0.443,
+B,2020,Outcome (reelection | ran again),7415,496,-0.03,0.018,-0.066,0.006,0.098,0.443,*
+C,2026,Selection (candidacy),5329,255,0.073,0.084,-0.093,0.238,0.39,-0.838,
+C,2026,Outcome (reelection | ran again),5329,255,-0.008,0.039,-0.085,0.068,0.83,-0.838,

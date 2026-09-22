@@ -1,0 +1,37 @@
+# Raw/large data -- not meant for this code repo. See /data_prep for
+# where to download each of these and how they're cleaned.
+data/BPE_adisp/
+data/RNE/
+data/rne_archives/
+data/wind/
+data/eolien-filtre/
+data/insee_emploi/
+data/insee_rural/
+data/presse/
+data/data_quentin/
+data/assos2025/
+data/recours/
+data/2.installations/
+data/3.installationsEn/
+data/geo/*.geojson
+election_data/data_quentin/2026/raw/
+election_data/data_quentin/2026/insee_raw/
+election_data/data_quentin/elections_municipales_clean.csv/
+phase_2/dataprod/*.gpkg
+phase_2/dataprod/*.qgz
+
+# Large geo/raster/archive formats, wherever they show up
+*.gpkg
+*.qgz
+*.tif
+*.dbf
+*.shp
+*.shx
+*.zip
+
+# R / LaTeX build artifacts
+.Rhistory
+.RData
+*.aux
+*.log
+*.synctex.gz

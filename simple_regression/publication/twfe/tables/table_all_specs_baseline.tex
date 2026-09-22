@@ -1,0 +1,307 @@
+\begingroup\fontsize{8}{10}\selectfont
+
+\begin{ThreePartTable}
+\begin{TableNotes}
+\item \textit{Note: } 
+\item TREATMENT: rural density 5-7, 0 wind farms in 2014 -> >=1 by 2020. CONTROL: rural density 5-7, never treated, department with > 3 treated municipalities, NO income/investment/wind matching (baseline pool, control_group.csv). TWFE: Y ~ eolien_treated | municipality + year, municipality-clustered SE. N = treated municipalities. *** p<0.01, ** p<0.05, * p<0.10.
+\end{TableNotes}
+\begin{longtable}[t]{lllrllll}
+\caption{\label{tab:tab:table_all_specs_baseline}Complete robustness check -- all outcome variables x all heterogeneity specifications, baseline control (Cohort B)}\\
+\toprule
+Outcome & Category & Specification & N & Estimate & SE & 95\% CI & p\\
+\midrule
+\endfirsthead
+\caption[]{Complete robustness check -- all outcome variables x all heterogeneity specifications, baseline control (Cohort B) \textit{(continued)}}\\
+\toprule
+Outcome & Category & Specification & N & Estimate & SE & 95\% CI & p\\
+\midrule
+\endhead
+
+\endfoot
+\bottomrule
+\insertTableNotes
+\endlastfoot
+ & Reference & Reference (Full Cohort B) & 592 & -2.15 & 2.81 & {}[-7.65, 3.35] & 0.444\\
+\cmidrule{2-8}\nopagebreak
+ &  & Application filed & 530 & -0.29 & 2.68 & {}[-5.55, 4.98] & 0.915\\
+\cmidrule{3-8}\nopagebreak
+ &  & Authorization granted & 581 & -5.41* & 2.77 & {}[-10.85, 0.02] & 0.051\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-3}{*}{\raggedright\arraybackslash Milestones} & Commissioning & 592 & -2.15 & 2.81 & {}[-7.65, 3.35] & 0.444\\
+\cmidrule{2-8}\nopagebreak
+ &  & Brittany & 23 & -17.88 & 14.84 & {}[-46.97, 11.21] & 0.229\\
+\cmidrule{3-8}\nopagebreak
+ &  & Grand Est & 90 & +14.88** & 7.00 & {}[1.17, 28.60] & 0.033\\
+\cmidrule{3-8}\nopagebreak
+ &  & Hauts-de-France & 223 & -3.84 & 4.30 & {}[-12.26, 4.59] & 0.372\\
+\cmidrule{3-8}\nopagebreak
+ &  & Normandy & 34 & -14.02 & 12.37 & {}[-38.26, 10.22] & 0.257\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-5}{*}{\raggedright\arraybackslash Regions} & Other regions & 222 & -2.59 & 4.88 & {}[-12.14, 6.97] & 0.596\\
+\cmidrule{2-8}\nopagebreak
+ &  & List ballot & 80 & +2.47 & 7.90 & {}[-13.00, 17.95] & 0.754\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Electoral system} & Plurality/individual & 512 & -2.93 & 3.00 & {}[-8.81, 2.94] & 0.328\\
+\cmidrule{2-8}\nopagebreak
+ &  & Mayor turnover 2014 & 228 & +0.67 & 3.90 & {}[-6.97, 8.31] & 0.863\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Mayor stability} & Mayor turnover 2020 & 157 & +0.21 & 3.22 & {}[-6.11, 6.52] & 0.949\\
+\cmidrule{2-8}\nopagebreak
+ &  & < 1,000 registered voters & 536 & -2.91 & 2.94 & {}[-8.67, 2.84] & 0.321\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Municipality size} & >= 1,000 registered voters & 56 & +4.89 & 9.40 & {}[-13.54, 23.31] & 0.603\\
+\cmidrule{2-8}\nopagebreak
+ &  & Large >= 8 MW & 303 & -3.16 & 3.89 & {}[-10.78, 4.45] & 0.416\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Installation power} & Small < 8 MW & 289 & -1.08 & 3.99 & {}[-8.91, 6.74] & 0.786\\
+\cmidrule{2-8}\nopagebreak
+ &  & A 2008-2014 & 454 & +0.92 & 3.22 & {}[-5.38, 7.23] & 0.774\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Cohorts} & C 2020-2026 & 292 & +1.59 & 3.87 & {}[-5.99, 9.17] & 0.680\\
+\cmidrule{2-8}\nopagebreak
+ &  & Competitive & 146 & -0.38 & 5.50 & {}[-11.16, 10.40] & 0.945\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Competitiveness} & Non-competitive & 446 & -3.00 & 3.25 & {}[-9.36, 3.37] & 0.356\\
+\cmidrule{2-8}\nopagebreak
+ &  & High & 263 & -5.81 & 4.27 & {}[-14.17, 2.56] & 0.174\\
+\cmidrule{3-8}\nopagebreak
+\multirow[t]{-23}{*}[9\dimexpr\aboverulesep+\belowrulesep+\cmidrulewidth]{\raggedright\arraybackslash Candidacy (pp)} & \multirow[t]{-2}{*}{\raggedright\arraybackslash Income} & Low & 264 & +2.37 & 4.25 & {}[-5.95, 10.70] & 0.576\\
+\cmidrule{1-8}\pagebreak[0]
+ & Reference & Reference (Full Cohort B) & 623 & -3.43 & 2.95 & {}[-9.21, 2.35] & 0.245\\
+\cmidrule{2-8}\nopagebreak
+ &  & Application filed & 550 & +1.38 & 2.84 & {}[-4.18, 6.95] & 0.627\\
+\cmidrule{3-8}\nopagebreak
+ &  & Authorization granted & 607 & -4.87* & 2.93 & {}[-10.61, 0.88] & 0.097\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-3}{*}{\raggedright\arraybackslash Milestones} & Commissioning & 623 & -3.43 & 2.95 & {}[-9.21, 2.35] & 0.245\\
+\cmidrule{2-8}\nopagebreak
+ &  & Brittany & 23 & -23.26 & 14.36 & {}[-51.41, 4.90] & 0.106\\
+\cmidrule{3-8}\nopagebreak
+ &  & Grand Est & 99 & +5.45 & 7.09 & {}[-8.46, 19.35] & 0.443\\
+\cmidrule{3-8}\nopagebreak
+ &  & Hauts-de-France & 227 & -1.40 & 4.88 & {}[-10.96, 8.16] & 0.774\\
+\cmidrule{3-8}\nopagebreak
+ &  & Normandy & 35 & -19.34 & 13.87 & {}[-46.52, 7.84] & 0.163\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-5}{*}{\raggedright\arraybackslash Regions} & Other regions & 239 & -2.00 & 4.86 & {}[-11.53, 7.52] & 0.680\\
+\cmidrule{2-8}\nopagebreak
+ &  & List ballot & 80 & -6.07 & 8.24 & {}[-22.21, 10.07] & 0.461\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Electoral system} & Plurality/individual & 543 & -3.12 & 3.16 & {}[-9.31, 3.07] & 0.324\\
+\cmidrule{2-8}\nopagebreak
+ &  & Mayor turnover 2014 & 233 & +2.06 & 3.07 & {}[-3.97, 8.08] & 0.503\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Mayor stability} & Mayor turnover 2020 & 162 & +0.00 & NA & {}[NA, NA] & NA\\
+\cmidrule{2-8}\nopagebreak
+ &  & < 1,000 registered voters & 567 & -3.28 & 3.09 & {}[-9.34, 2.78] & 0.289\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Municipality size} & >= 1,000 registered voters & 56 & -5.32 & 9.87 & {}[-24.66, 14.02] & 0.590\\
+\cmidrule{2-8}\nopagebreak
+ &  & Large >= 8 MW & 323 & -2.36 & 4.03 & {}[-10.25, 5.53] & 0.557\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Installation power} & Small < 8 MW & 300 & -4.58 & 4.27 & {}[-12.95, 3.78] & 0.283\\
+\cmidrule{2-8}\nopagebreak
+ &  & A 2008-2014 & 482 & +0.93 & 3.27 & {}[-5.47, 7.33] & 0.777\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Cohorts} & C 2020-2026 & 292 & +3.83 & 4.36 & {}[-4.71, 12.36] & 0.380\\
+\cmidrule{2-8}\nopagebreak
+ &  & Competitive & 155 & -10.58* & 5.77 & {}[-21.89, 0.74] & 0.067\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Competitiveness} & Non-competitive & 468 & -1.73 & 3.42 & {}[-8.44, 4.98] & 0.613\\
+\cmidrule{2-8}\nopagebreak
+ &  & High & 276 & -8.39* & 4.44 & {}[-17.09, 0.30] & 0.059\\
+\cmidrule{3-8}\nopagebreak
+\multirow[t]{-23}{*}[9\dimexpr\aboverulesep+\belowrulesep+\cmidrulewidth]{\raggedright\arraybackslash Reelection (pp)} & \multirow[t]{-2}{*}{\raggedright\arraybackslash Income} & Low & 279 & +2.53 & 4.44 & {}[-6.18, 11.24] & 0.569\\
+\cmidrule{1-8}\pagebreak[0]
+ & Reference & Reference (Full Cohort B) & 637 & -0.82 & 0.69 & {}[-2.18, 0.53] & 0.233\\
+\cmidrule{2-8}\nopagebreak
+ &  & Application filed & 585 & +0.50 & 0.66 & {}[-0.79, 1.79] & 0.447\\
+\cmidrule{3-8}\nopagebreak
+ &  & Authorization granted & 628 & -0.21 & 0.67 & {}[-1.52, 1.10] & 0.753\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-3}{*}{\raggedright\arraybackslash Milestones} & Commissioning & 637 & -0.82 & 0.69 & {}[-2.18, 0.53] & 0.233\\
+\cmidrule{2-8}\nopagebreak
+ &  & Brittany & 24 & +3.80 & 4.98 & {}[-5.97, 13.56] & 0.446\\
+\cmidrule{3-8}\nopagebreak
+ &  & Grand Est & 99 & -3.51*** & 1.36 & {}[-6.17, -0.85] & 0.010\\
+\cmidrule{3-8}\nopagebreak
+ &  & Hauts-de-France & 230 & -0.73 & 1.21 & {}[-3.10, 1.63] & 0.544\\
+\cmidrule{3-8}\nopagebreak
+ &  & Normandy & 35 & -4.20 & 3.71 & {}[-11.47, 3.06] & 0.257\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-5}{*}{\raggedright\arraybackslash Regions} & Other regions & 249 & +0.46 & 1.06 & {}[-1.61, 2.54] & 0.662\\
+\cmidrule{2-8}\nopagebreak
+ &  & List ballot & 86 & +2.88 & 2.48 & {}[-1.97, 7.74] & 0.245\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Electoral system} & Plurality/individual & 551 & -1.43** & 0.70 & {}[-2.80, -0.06] & 0.040\\
+\cmidrule{2-8}\nopagebreak
+ &  & Mayor turnover 2014 & 235 & -1.32 & 1.21 & {}[-3.69, 1.05] & 0.275\\
+\cmidrule{3-8}\nopagebreak
+ &  & Mayor turnover 2020 & 162 & -1.71 & 1.30 & {}[-4.25, 0.84] & 0.188\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-3}{*}{\raggedright\arraybackslash Mayor stability} & Same mayor 2014-2020 & 219 & +0.79 & 1.06 & {}[-1.29, 2.87] & 0.455\\
+\cmidrule{2-8}\nopagebreak
+ &  & < 1,000 registered voters & 576 & -0.91 & 0.70 & {}[-2.28, 0.46] & 0.193\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Municipality size} & >= 1,000 registered voters & 61 & +0.01 & 2.91 & {}[-5.69, 5.70] & 0.998\\
+\cmidrule{2-8}\nopagebreak
+ &  & Large >= 8 MW & 331 & -0.09 & 0.92 & {}[-1.89, 1.72] & 0.926\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Installation power} & Small < 8 MW & 306 & -1.63 & 1.02 & {}[-3.63, 0.37] & 0.111\\
+\cmidrule{2-8}\nopagebreak
+ &  & A 2008-2014 & 497 & -0.04 & 0.73 & {}[-1.48, 1.40] & 0.952\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Cohorts} & C 2020-2026 & 329 & +0.57 & 1.07 & {}[-1.53, 2.66] & 0.596\\
+\cmidrule{2-8}\nopagebreak
+ &  & Competitive & 161 & -2.65 & 1.63 & {}[-5.85, 0.55] & 0.104\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Competitiveness} & Non-competitive & 476 & -0.68 & 0.69 & {}[-2.03, 0.66] & 0.320\\
+\cmidrule{2-8}\nopagebreak
+ &  & High & 285 & -0.83 & 1.13 & {}[-3.04, 1.37] & 0.459\\
+\cmidrule{3-8}\nopagebreak
+\multirow[t]{-24}{*}[9\dimexpr\aboverulesep+\belowrulesep+\cmidrulewidth]{\raggedright\arraybackslash Winner vote share (\% valid votes)} & \multirow[t]{-2}{*}{\raggedright\arraybackslash Income} & Low & 284 & -0.76 & 0.97 & {}[-2.66, 1.14] & 0.431\\
+\cmidrule{1-8}\pagebreak[0]
+ & Reference & Reference (Full Cohort B) & 637 & -0.53 & 0.41 & {}[-1.34, 0.28] & 0.203\\
+\cmidrule{2-8}\nopagebreak
+ &  & Application filed & 585 & -0.35 & 0.40 & {}[-1.13, 0.44] & 0.385\\
+\cmidrule{3-8}\nopagebreak
+ &  & Authorization granted & 628 & -0.67 & 0.41 & {}[-1.47, 0.13] & 0.102\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-3}{*}{\raggedright\arraybackslash Milestones} & Commissioning & 637 & -0.53 & 0.41 & {}[-1.34, 0.28] & 0.203\\
+\cmidrule{2-8}\nopagebreak
+ &  & Brittany & 24 & +0.41 & 1.99 & {}[-3.50, 4.31] & 0.838\\
+\cmidrule{3-8}\nopagebreak
+ &  & Grand Est & 99 & -3.16*** & 1.11 & {}[-5.34, -0.97] & 0.005\\
+\cmidrule{3-8}\nopagebreak
+ &  & Hauts-de-France & 230 & -0.53 & 0.75 & {}[-2.01, 0.95] & 0.484\\
+\cmidrule{3-8}\nopagebreak
+ &  & Normandy & 35 & -2.49 & 1.98 & {}[-6.37, 1.39] & 0.209\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-5}{*}{\raggedright\arraybackslash Regions} & Other regions & 249 & -0.11 & 0.57 & {}[-1.23, 1.01] & 0.848\\
+\cmidrule{2-8}\nopagebreak
+ &  & List ballot & 86 & +0.50 & 1.13 & {}[-1.72, 2.72] & 0.658\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Electoral system} & Plurality/individual & 551 & -0.68 & 0.44 & {}[-1.55, 0.19] & 0.126\\
+\cmidrule{2-8}\nopagebreak
+ &  & Mayor turnover 2014 & 235 & -1.15 & 0.71 & {}[-2.54, 0.24] & 0.105\\
+\cmidrule{3-8}\nopagebreak
+ &  & Mayor turnover 2020 & 162 & -0.77 & 0.76 & {}[-2.26, 0.72] & 0.309\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-3}{*}{\raggedright\arraybackslash Mayor stability} & Same mayor 2014-2020 & 219 & +0.56 & 0.70 & {}[-0.81, 1.92] & 0.424\\
+\cmidrule{2-8}\nopagebreak
+ &  & < 1,000 registered voters & 576 & -0.56 & 0.44 & {}[-1.42, 0.30] & 0.198\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Municipality size} & >= 1,000 registered voters & 61 & -0.05 & 1.24 & {}[-2.48, 2.38] & 0.967\\
+\cmidrule{2-8}\nopagebreak
+ &  & Large >= 8 MW & 331 & -0.54 & 0.56 & {}[-1.64, 0.55] & 0.332\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Installation power} & Small < 8 MW & 306 & -0.51 & 0.60 & {}[-1.69, 0.67] & 0.398\\
+\cmidrule{2-8}\nopagebreak
+ &  & A 2008-2014 & 497 & +0.59* & 0.33 & {}[-0.06, 1.24] & 0.074\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Cohorts} & C 2020-2026 & 332 & +0.87 & 0.61 & {}[-0.33, 2.07] & 0.154\\
+\cmidrule{2-8}\nopagebreak
+ &  & Competitive & 161 & -1.01 & 0.87 & {}[-2.71, 0.69] & 0.245\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Competitiveness} & Non-competitive & 476 & -0.48 & 0.47 & {}[-1.40, 0.44] & 0.305\\
+\cmidrule{2-8}\nopagebreak
+ &  & High & 285 & -1.20** & 0.61 & {}[-2.40, -0.00] & 0.049\\
+\cmidrule{3-8}\nopagebreak
+\multirow[t]{-24}{*}[9\dimexpr\aboverulesep+\belowrulesep+\cmidrulewidth]{\raggedright\arraybackslash Abstention (\% registered)} & \multirow[t]{-2}{*}{\raggedright\arraybackslash Income} & Low & 284 & +1.02* & 0.60 & {}[-0.17, 2.20] & 0.093\\
+\cmidrule{1-8}\pagebreak[0]
+ & Reference & Reference (Full Cohort B) & 621 & -0.39 & 1.10 & {}[-2.55, 1.76] & 0.721\\
+\cmidrule{2-8}\nopagebreak
+ &  & Application filed & 573 & -2.27** & 1.05 & {}[-4.33, -0.21] & 0.031\\
+\cmidrule{3-8}\nopagebreak
+ &  & Authorization granted & 618 & -2.40** & 1.15 & {}[-4.66, -0.14] & 0.038\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-3}{*}{\raggedright\arraybackslash Milestones} & Commissioning & 621 & -0.39 & 1.10 & {}[-2.55, 1.76] & 0.721\\
+\cmidrule{2-8}\nopagebreak
+ &  & Brittany & 21 & +3.04 & 6.04 & {}[-8.81, 14.88] & 0.616\\
+\cmidrule{3-8}\nopagebreak
+ &  & Grand Est & 94 & +0.57 & 2.99 & {}[-5.28, 6.43] & 0.848\\
+\cmidrule{3-8}\nopagebreak
+ &  & Hauts-de-France & 225 & +1.09 & 1.77 & {}[-2.38, 4.56] & 0.539\\
+\cmidrule{3-8}\nopagebreak
+ &  & Normandy & 35 & -3.58 & 4.24 & {}[-11.88, 4.72] & 0.398\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-5}{*}{\raggedright\arraybackslash Regions} & Other regions & 246 & -0.39 & 1.82 & {}[-3.96, 3.19] & 0.832\\
+\cmidrule{2-8}\nopagebreak
+ &  & List ballot & 71 & -1.99 & 4.44 & {}[-10.68, 6.70] & 0.654\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Electoral system} & Plurality/individual & 550 & -0.30 & 1.13 & {}[-2.51, 1.92] & 0.793\\
+\cmidrule{2-8}\nopagebreak
+ &  & Mayor turnover 2014 & 227 & -0.44 & 1.75 & {}[-3.87, 3.00] & 0.804\\
+\cmidrule{3-8}\nopagebreak
+ &  & Mayor turnover 2020 & 159 & -1.32 & 2.14 & {}[-5.52, 2.88] & 0.538\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-3}{*}{\raggedright\arraybackslash Mayor stability} & Same mayor 2014-2020 & 214 & -0.93 & 1.69 & {}[-4.25, 2.39] & 0.584\\
+\cmidrule{2-8}\nopagebreak
+ &  & < 1,000 registered voters & 571 & -0.32 & 1.10 & {}[-2.48, 1.84] & 0.774\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Municipality size} & >= 1,000 registered voters & 50 & -17.26 & 15.80 & {}[-48.23, 13.71] & 0.277\\
+\cmidrule{2-8}\nopagebreak
+ &  & Large >= 8 MW & 323 & +1.20 & 1.51 & {}[-1.77, 4.17] & 0.428\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Installation power} & Small < 8 MW & 298 & -2.02 & 1.57 & {}[-5.10, 1.06] & 0.198\\
+\cmidrule{2-8}\nopagebreak
+ & Cohorts & C 2020-2026 & 326 & +0.28 & 1.33 & {}[-2.32, 2.88] & 0.832\\
+\cmidrule{2-8}\nopagebreak
+ &  & Competitive & 158 & -0.65 & 2.20 & {}[-4.96, 3.65] & 0.766\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Competitiveness} & Non-competitive & 463 & +0.00 & 1.26 & {}[-2.46, 2.46] & 0.999\\
+\cmidrule{2-8}\nopagebreak
+ &  & High & 279 & -2.07 & 1.58 & {}[-5.17, 1.02] & 0.189\\
+\cmidrule{3-8}\nopagebreak
+\multirow[t]{-23}{*}[9\dimexpr\aboverulesep+\belowrulesep+\cmidrulewidth]{\raggedright\arraybackslash Candidate turnover (\%)} & \multirow[t]{-2}{*}{\raggedright\arraybackslash Income} & Low & 274 & +2.72* & 1.64 & {}[-0.49, 5.93] & 0.097\\
+\cmidrule{1-8}\pagebreak[0]
+ & Reference & Reference (Full Cohort B) & 429 & +1.65 & 1.31 & {}[-0.92, 4.22] & 0.208\\
+\cmidrule{2-8}\nopagebreak
+ &  & Application filed & 401 & -0.09 & 1.17 & {}[-2.38, 2.19] & 0.936\\
+\cmidrule{3-8}\nopagebreak
+ &  & Authorization granted & 422 & +0.39 & 1.33 & {}[-2.22, 3.01] & 0.769\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-3}{*}{\raggedright\arraybackslash Milestones} & Commissioning & 429 & +1.65 & 1.31 & {}[-0.92, 4.22] & 0.208\\
+\cmidrule{2-8}\nopagebreak
+ &  & Brittany & 12 & +2.65 & 12.52 & {}[-21.88, 27.19] & 0.832\\
+\cmidrule{3-8}\nopagebreak
+ &  & Grand Est & 76 & -1.38 & 2.02 & {}[-5.35, 2.58] & 0.495\\
+\cmidrule{3-8}\nopagebreak
+ &  & Hauts-de-France & 156 & +3.61* & 2.18 & {}[-0.66, 7.87] & 0.098\\
+\cmidrule{3-8}\nopagebreak
+ &  & Normandy & 23 & -1.73 & 6.24 & {}[-13.96, 10.51] & 0.782\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-5}{*}{\raggedright\arraybackslash Regions} & Other regions & 162 & +1.82 & 2.27 & {}[-2.64, 6.27] & 0.424\\
+\cmidrule{2-8}\nopagebreak
+ &  & List ballot & 51 & +1.80 & 4.52 & {}[-7.06, 10.66] & 0.690\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Electoral system} & Plurality/individual & 378 & +1.61 & 1.36 & {}[-1.06, 4.28] & 0.237\\
+\cmidrule{2-8}\nopagebreak
+ &  & Mayor turnover 2014 & 178 & +3.96 & 4.06 & {}[-4.00, 11.91] & 0.330\\
+\cmidrule{3-8}\nopagebreak
+ &  & Mayor turnover 2020 & 27 & +3.55 & 3.90 & {}[-4.09, 11.20] & 0.363\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-3}{*}{\raggedright\arraybackslash Mayor stability} & Same mayor 2014-2020 & 219 & +0.79 & 1.06 & {}[-1.29, 2.87] & 0.455\\
+\cmidrule{2-8}\nopagebreak
+ &  & < 1,000 registered voters & 395 & +2.01 & 1.35 & {}[-0.63, 4.65] & 0.136\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Municipality size} & >= 1,000 registered voters & 34 & -3.47 & 5.33 & {}[-13.92, 6.98] & 0.515\\
+\cmidrule{2-8}\nopagebreak
+ &  & Large >= 8 MW & 219 & +3.14 & 1.91 & {}[-0.61, 6.88] & 0.100\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Installation power} & Small < 8 MW & 210 & +0.07 & 1.75 & {}[-3.36, 3.50] & 0.967\\
+\cmidrule{2-8}\nopagebreak
+ &  & A 2008-2014 & 355 & +0.46 & 1.23 & {}[-1.95, 2.87] & 0.706\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Cohorts} & C 2020-2026 & 156 & +0.85 & 2.02 & {}[-3.11, 4.82] & 0.673\\
+\cmidrule{2-8}\nopagebreak
+ &  & Competitive & 106 & -0.09 & 3.21 & {}[-6.39, 6.20] & 0.977\\
+\cmidrule{3-8}\nopagebreak
+ & \multirow[t]{-2}{*}{\raggedright\arraybackslash Competitiveness} & Non-competitive & 323 & +1.29 & 1.33 & {}[-1.33, 3.90] & 0.335\\
+\cmidrule{2-8}\nopagebreak
+ &  & High & 183 & +1.07 & 2.13 & {}[-3.10, 5.24] & 0.615\\
+\cmidrule{3-8}\nopagebreak
+\multirow[t]{-24}{*}[9\dimexpr\aboverulesep+\belowrulesep+\cmidrulewidth]{\raggedright\arraybackslash Incumbent vote share (\% valid votes)} & \multirow[t]{-2}{*}{\raggedright\arraybackslash Income} & Low & 197 & +2.20 & 1.93 & {}[-1.59, 5.99] & 0.256\\*
+\end{longtable}
+\end{ThreePartTable}
+\endgroup{}

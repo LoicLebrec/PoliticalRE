@@ -1,0 +1,52 @@
+cohort,outcome,estimate,se,p,ci_low,ci_high,spec
+A,Candidacy (pp),0.979,1.779,0.5822656623915686,-2.508,4.466,Binary (declined 0/1)
+A,Reelection (pp),-0.757,1.842,0.6809756028634458,-4.367,2.852,Binary (declined 0/1)
+A,Winner vote share (%),-0.779,0.462,0.09173698260259236,-1.684,0.126,Binary (declined 0/1)
+A,Abstention (%),-0.431,0.17,0.01145253487764254,-0.765,-0.097,Binary (declined 0/1)
+A,Incumbent vote share (%),-1.512,0.838,0.07121628618066798,-3.154,0.13,Binary (declined 0/1)
+B,Candidacy (pp),-1.214,1.761,0.4908165328399966,-4.666,2.239,Binary (declined 0/1)
+B,Reelection (pp),-0.628,1.844,0.7333245580901426,-4.242,2.986,Binary (declined 0/1)
+B,Winner vote share (%),0.394,0.545,0.4703421084546344,-0.675,1.462,Binary (declined 0/1)
+B,Abstention (%),-0.281,0.263,0.2859090660980599,-0.797,0.235,Binary (declined 0/1)
+B,Candidate turnover (%),0.075,0.78,0.9232222009151456,-1.454,1.604,Binary (declined 0/1)
+B,Incumbent vote share (%),-0.296,0.967,0.7597903143369619,-2.191,1.599,Binary (declined 0/1)
+C,Candidacy (pp),2.924,2.551,0.25169784411075463,-2.075,7.924,Binary (declined 0/1)
+C,Reelection (pp),4.471,2.685,0.09590118467568944,-0.791,9.734,Binary (declined 0/1)
+C,Winner vote share (%),-0.755,0.811,0.35193736601215164,-2.343,0.834,Binary (declined 0/1)
+C,Abstention (%),-0.366,0.399,0.35886151336650784,-1.149,0.416,Binary (declined 0/1)
+C,Candidate turnover (%),0.727,0.779,0.35074093107758286,-0.8,2.253,Binary (declined 0/1)
+C,Incumbent vote share (%),-2.519,1.572,0.10920939071807526,-5.6,0.562,Binary (declined 0/1)
+A,Candidacy (pp),1.068,2.982,0.7202980325810358,-4.777,6.913,Continuous (severity dose)
+A,Reelection (pp),-0.262,3.096,0.9326566141373005,-6.329,5.806,Continuous (severity dose)
+A,Winner vote share (%),-0.364,0.675,0.5895693666275252,-1.686,0.958,Continuous (severity dose)
+A,Abstention (%),-0.215,0.285,0.44981010340299776,-0.774,0.343,Continuous (severity dose)
+A,Incumbent vote share (%),-0.741,1.268,0.5589983712840954,-3.225,1.744,Continuous (severity dose)
+B,Candidacy (pp),0.858,2.956,0.7716145430831333,-4.936,6.652,Continuous (severity dose)
+B,Reelection (pp),2.004,3.148,0.5245019729662906,-4.167,8.174,Continuous (severity dose)
+B,Winner vote share (%),0.536,0.823,0.5148381562380941,-1.077,2.148,Continuous (severity dose)
+B,Abstention (%),0.344,0.436,0.4311831260564767,-0.512,1.199,Continuous (severity dose)
+B,Candidate turnover (%),0.114,1.114,0.9184192974031138,-2.07,2.299,Continuous (severity dose)
+B,Incumbent vote share (%),0.387,1.507,0.7972830788127021,-2.567,3.341,Continuous (severity dose)
+C,Candidacy (pp),4.873,4.973,0.327193573846711,-4.874,14.619,Continuous (severity dose)
+C,Reelection (pp),7.157,5.182,0.16732931931786868,-3,17.313,Continuous (severity dose)
+C,Winner vote share (%),0.224,1.503,0.8815926263234449,-2.723,3.171,Continuous (severity dose)
+C,Abstention (%),-0.419,0.792,0.5966533155826735,-1.971,1.133,Continuous (severity dose)
+C,Candidate turnover (%),0.963,1.553,0.5350765265510337,-2.08,4.007,Continuous (severity dose)
+C,Incumbent vote share (%),-2.565,3.134,0.4132215108993529,-8.708,3.578,Continuous (severity dose)
+A,Candidacy (pp),1.046,2.987,0.7261752140520459,-4.808,6.9,Continuous + baseline-tercile x year FE
+A,Reelection (pp),-0.253,3.1,0.9350795533845817,-6.328,5.823,Continuous + baseline-tercile x year FE
+A,Winner vote share (%),-0.377,0.676,0.5776427916291262,-1.702,0.949,Continuous + baseline-tercile x year FE
+A,Abstention (%),-0.206,0.286,0.47004455936259393,-0.766,0.353,Continuous + baseline-tercile x year FE
+A,Incumbent vote share (%),-0.713,1.274,0.5760504005152585,-3.21,1.785,Continuous + baseline-tercile x year FE
+B,Candidacy (pp),0.893,2.958,0.7626102737020997,-4.903,6.69,Continuous + baseline-tercile x year FE
+B,Reelection (pp),2.06,3.149,0.5129896310103703,-4.112,8.233,Continuous + baseline-tercile x year FE
+B,Winner vote share (%),0.518,0.825,0.5300610577996578,-1.098,2.134,Continuous + baseline-tercile x year FE
+B,Abstention (%),0.349,0.436,0.4227947521022899,-0.505,1.203,Continuous + baseline-tercile x year FE
+B,Candidate turnover (%),0.113,1.115,0.9193695838860501,-2.073,2.299,Continuous + baseline-tercile x year FE
+B,Incumbent vote share (%),0.42,1.512,0.7814423401124196,-2.544,3.383,Continuous + baseline-tercile x year FE
+C,Candidacy (pp),5.587,4.991,0.2630277281552482,-4.195,15.369,Continuous + baseline-tercile x year FE
+C,Reelection (pp),7.91,5.211,0.12909402110601137,-2.304,18.124,Continuous + baseline-tercile x year FE
+C,Winner vote share (%),0.346,1.514,0.8194011451076215,-2.621,3.312,Continuous + baseline-tercile x year FE
+C,Abstention (%),-0.607,0.796,0.4459962256468888,-2.167,0.953,Continuous + baseline-tercile x year FE
+C,Candidate turnover (%),0.871,1.563,0.5771090372403119,-2.191,3.934,Continuous + baseline-tercile x year FE
+C,Incumbent vote share (%),-2.697,3.146,0.39148219037349385,-8.862,3.469,Continuous + baseline-tercile x year FE

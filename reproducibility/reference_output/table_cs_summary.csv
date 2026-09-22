@@ -1,0 +1,13 @@
+control,outcome,overall_att,overall_se,overall_p,any_presig
+Matched (socio-eco),Candidacy (pp),0.945,1.629,0.562,FALSE
+Matched (socio-eco),Reelection (pp),-0.5,1.727,0.772,FALSE
+Matched (socio-eco),Winner vote share (%),-0.149,0.442,0.736,FALSE
+Matched (socio-eco),Abstention (%),-0.018,0.229,0.939,FALSE
+Matched (socio-eco),Candidate turnover (%),0.084,0.853,0.922,FALSE
+Matched (socio-eco),Incumbent vote share (%),-0.152,0.629,0.809,FALSE
+Baseline (unmatched),Candidacy (pp),1.099,1.616,0.496,FALSE
+Baseline (unmatched),Reelection (pp),-0.407,1.564,0.795,FALSE
+Baseline (unmatched),Winner vote share (%),0.116,0.422,0.783,FALSE
+Baseline (unmatched),Abstention (%),0.352,0.219,0.109,FALSE
+Baseline (unmatched),Candidate turnover (%),-0.708,0.754,0.348,FALSE
+Baseline (unmatched),Incumbent vote share (%),0.272,0.614,0.658,FALSE

@@ -1,0 +1,7 @@
+Outcome,TWFE (Cohort B),TWFE SE,CS (pooled),CS SE,Heckman (Cohort B),Heckman SE
+Candidacy (pp),-2.02,2.88,+0.94,1.63,-8.20,6.20
+Reelection (pp),-3.08,3.03,-0.50,1.73,-3.00*,1.80
+Winner vote share (%),-0.99,0.71,-0.15,0.44,--,--
+Abstention (%),-0.88**,0.42,-0.02,0.23,--,--
+Candidate turnover (%),+0.91,1.12,+0.08,0.85,--,--
+Incumbent vote share (%),+1.50,1.35,-0.15,0.63,--,--

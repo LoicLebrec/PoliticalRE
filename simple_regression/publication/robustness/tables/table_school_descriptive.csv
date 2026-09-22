@@ -1,0 +1,4 @@
+cohort,treatment,control_choice,n_at_risk,n_treated,n_control_pool,n_matched_control,median_inscrits_treated,median_inscrits_control,dominant_density_treated,dominant_density_control
+A,"C104 (ecole elementaire) present 2008, closed by 2014","Survivor-matched: at-risk universe = had C104 in yr_lo; control = kept it through yr_hi; probit(closed ~ density + log(pop) + log(income) + dept FE), P10 threshold",9938,582,9356,2927,330,424,6,6
+B,"C104 (ecole elementaire) present 2014, closed by 2020","Survivor-matched: at-risk universe = had C104 in yr_lo; control = kept it through yr_hi; probit(closed ~ density + log(pop) + log(income) + dept FE), P10 threshold",10234,508,9726,2715,349,457,6,6
+C,"C104 (ecole elementaire) present 2020, closed by 2025","Survivor-matched: at-risk universe = had C104 in yr_lo; control = kept it through yr_hi; probit(closed ~ density + log(pop) + log(income) + dept FE), P10 threshold",10292,141,10097,1738,303,384,6,6

@@ -1,0 +1,10 @@
+Variable,N_treatment,Mean_treatment,SD_treatment,N_control,Mean_control,SD_control,Diff,p
+Municipalities (N),637,NA,NA,8284,NA,NA,NA,NA
+Registered voters (2014),637,420.14,544.38,8284,503.11,609.48,-82.97,0
+"Median household income (EUR, 2014)",569,19280.11,1999.91,8284,19610.86,2124.99,-330.75,0
+"Municipal investment per capita (EUR, 2013)",637,9892.13,5594.35,8284,9644.71,5219.01,247.42,0.28
+Wind speed at 100m (m/s),636,6.88,0.61,8284,6.82,0.68,0.07,0.011
+"Incumbent candidacy rate (%, 2014)",586,70.99,45.42,7480,72.02,44.89,-1.03,0.597
+"Incumbent reelection rate (%, 2014)",616,61.85,48.61,7589,61.75,48.6,0.1,0.96
+"Winner vote share (% valid votes, 2014)",637,81.61,14.95,8284,81.51,15.81,0.11,0.86
+"Abstention rate (% registered, 2014)",637,23.16,8.72,8284,24.52,8.63,-1.36,0

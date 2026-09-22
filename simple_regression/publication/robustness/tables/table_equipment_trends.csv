@@ -1,0 +1,145 @@
+type,group,annee,total
+D705 Asylum reception (CADA),National,2008,269
+D705 Asylum reception (CADA),National,2014,280
+D705 Asylum reception (CADA),National,2020,370
+D705 Asylum reception (CADA),National,2025,411
+D705 Asylum reception (CADA),Declined (treated),2008,6
+D705 Asylum reception (CADA),Declined (treated),2014,6
+D705 Asylum reception (CADA),Declined (treated),2020,7
+D705 Asylum reception (CADA),Declined (treated),2025,9
+D705 Asylum reception (CADA),Matched control,2008,5
+D705 Asylum reception (CADA),Matched control,2014,6
+D705 Asylum reception (CADA),Matched control,2020,7
+D705 Asylum reception (CADA),Matched control,2025,9
+D107 Maternity ward,National,2008,633
+D107 Maternity ward,National,2014,537
+D107 Maternity ward,National,2020,489
+D107 Maternity ward,National,2025,455
+D107 Maternity ward,Declined (treated),2008,3
+D107 Maternity ward,Declined (treated),2014,6
+D107 Maternity ward,Declined (treated),2020,2
+D107 Maternity ward,Declined (treated),2025,2
+D107 Maternity ward,Matched control,2008,2
+D107 Maternity ward,Matched control,2014,3
+D107 Maternity ward,Matched control,2020,4
+D107 Maternity ward,Matched control,2025,4
+Elementary school,National,2008,30470
+Elementary school,National,2014,29916
+Elementary school,National,2020,30286
+Elementary school,National,2025,36098
+Elementary school,Declined (treated),2008,2732
+Elementary school,Declined (treated),2014,2777
+Elementary school,Declined (treated),2020,2173
+Elementary school,Declined (treated),2025,2608
+Elementary school,Matched control,2008,5369
+Elementary school,Matched control,2014,5509
+Elementary school,Matched control,2020,5667
+Elementary school,Matched control,2025,5889
+College,National,2008,7046
+College,National,2014,7098
+College,National,2020,7315
+College,National,2025,7532
+College,Declined (treated),2008,575
+College,Declined (treated),2014,584
+College,Declined (treated),2020,564
+College,Declined (treated),2025,579
+College,Matched control,2008,589
+College,Matched control,2014,604
+College,Matched control,2020,632
+College,Matched control,2025,653
+Police,National,2008,830
+Police,National,2014,782
+Police,National,2020,763
+Police,National,2025,661
+Police,Declined (treated),2008,0
+Police,Declined (treated),2014,0
+Police,Declined (treated),2020,0
+Police,Declined (treated),2025,0
+Police,Matched control,2008,0
+Police,Matched control,2014,0
+Police,Matched control,2020,1
+Police,Matched control,2025,0
+Gendarmerie,National,2008,3422
+Gendarmerie,National,2014,3234
+Gendarmerie,National,2020,3016
+Gendarmerie,National,2025,3394
+Gendarmerie,Declined (treated),2008,633
+Gendarmerie,Declined (treated),2014,632
+Gendarmerie,Declined (treated),2020,548
+Gendarmerie,Declined (treated),2025,581
+Gendarmerie,Matched control,2008,694
+Gendarmerie,Matched control,2014,693
+Gendarmerie,Matched control,2020,670
+Gendarmerie,Matched control,2025,745
+Hospital (short stay),National,2008,1832
+Hospital (short stay),National,2014,1571
+Hospital (short stay),National,2020,1441
+Hospital (short stay),National,2025,1670
+Hospital (short stay),Declined (treated),2008,78
+Hospital (short stay),Declined (treated),2014,75
+Hospital (short stay),Declined (treated),2020,65
+Hospital (short stay),Declined (treated),2025,75
+Hospital (short stay),Matched control,2008,45
+Hospital (short stay),Matched control,2014,49
+Hospital (short stay),Matched control,2020,45
+Hospital (short stay),Matched control,2025,48
+Hospital (medium stay),National,2008,1975
+Hospital (medium stay),National,2014,1908
+Hospital (medium stay),National,2020,1833
+Hospital (medium stay),National,2025,1847
+Hospital (medium stay),Declined (treated),2008,129
+Hospital (medium stay),Declined (treated),2014,136
+Hospital (medium stay),Declined (treated),2020,112
+Hospital (medium stay),Declined (treated),2025,111
+Hospital (medium stay),Matched control,2008,128
+Hospital (medium stay),Matched control,2014,130
+Hospital (medium stay),Matched control,2020,133
+Hospital (medium stay),Matched control,2025,126
+Hospital (long stay),National,2008,923
+Hospital (long stay),National,2014,621
+Hospital (long stay),National,2020,610
+Hospital (long stay),National,2025,599
+Hospital (long stay),Declined (treated),2008,57
+Hospital (long stay),Declined (treated),2014,39
+Hospital (long stay),Declined (treated),2020,37
+Hospital (long stay),Declined (treated),2025,37
+Hospital (long stay),Matched control,2008,42
+Hospital (long stay),Matched control,2014,34
+Hospital (long stay),Matched control,2020,33
+Hospital (long stay),Matched control,2025,34
+Emergency (urgences),National,2008,707
+Emergency (urgences),National,2014,698
+Emergency (urgences),National,2020,698
+Emergency (urgences),National,2025,695
+Emergency (urgences),Declined (treated),2008,19
+Emergency (urgences),Declined (treated),2014,24
+Emergency (urgences),Declined (treated),2020,21
+Emergency (urgences),Declined (treated),2025,23
+Emergency (urgences),Matched control,2008,7
+Emergency (urgences),Matched control,2014,9
+Emergency (urgences),Matched control,2020,12
+Emergency (urgences),Matched control,2025,14
+GP doctor,National,2008,65491
+GP doctor,National,2014,63361
+GP doctor,National,2020,60305
+GP doctor,National,2025,61263
+GP doctor,Declined (treated),2008,4312
+GP doctor,Declined (treated),2014,5057
+GP doctor,Declined (treated),2020,3178
+GP doctor,Declined (treated),2025,3491
+GP doctor,Matched control,2008,4953
+GP doctor,Matched control,2014,5570
+GP doctor,Matched control,2020,6642
+GP doctor,Matched control,2025,6498
+Pharmacy,National,2008,23961
+Pharmacy,National,2014,24049
+Pharmacy,National,2020,21580
+Pharmacy,National,2025,20334
+Pharmacy,Declined (treated),2008,1796
+Pharmacy,Declined (treated),2014,1889
+Pharmacy,Declined (treated),2020,1593
+Pharmacy,Declined (treated),2025,1488
+Pharmacy,Matched control,2008,2222
+Pharmacy,Matched control,2014,2230
+Pharmacy,Matched control,2020,2242
+Pharmacy,Matched control,2025,2139
