@@ -5,6 +5,10 @@ political effects of communes that build or plan wind farms.
 
 ## Reproducing the tables
 
+Raw data is not included in this repository and must be obtained first;
+see `/data_prep` for sources, fetch scripts, and checksums. Once the raw
+data is in place:
+
 ```
 git clone <this repo>
 cd PoliticalRE
@@ -13,10 +17,10 @@ Rscript reproducibility/run_pipeline.R
 ```
 
 This executes all pipeline steps in dependency order and halts on the
-first failure. Total runtime is approximately 10 minutes. See
-`reproducibility/README.md` for the complete pipeline breakdown,
-requirements, and caveats that should be reviewed before relying on a
-from-scratch run.
+first failure. Total runtime is approximately 10 minutes given the raw
+data is already present. See `reproducibility/README.md` for the complete
+pipeline breakdown, requirements, and caveats that should be reviewed
+before relying on a from-scratch run.
 
 `reproducibility/table_manifest.csv` maps each of the paper's 15 tables
 to the script that produces it. `reproducibility/reference_output/`

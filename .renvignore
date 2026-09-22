@@ -1,13 +1,11 @@
-# Restrict renv's dependency scan to the publication pipeline
-# (simple_regression/) that renv.lock is meant to cover. Without this,
-# renv scans the whole repo (2000+ files: archives, old phase_1/phase_2/
-# phase3 exploration, election_data/Archive notebooks, the Python .venv,
-# etc.), which is slow, pulls in packages no publication script uses
-# (sf, MatchIt, tidyverse, RSelenium...), and even errors on a corrupted
-# notebook under election_data/data_quentin/Archive/__MACOSX/.
-#
-# simple_regression/archives/ is excluded too -- superseded scripts, not
-# part of the current pipeline (see simple_regression/publication/replication/README.md).
+# Restricts renv's dependency scan to the publication pipeline (code/)
+# that renv.lock covers. In the full research repository (of which this
+# published repository is a trimmed extract), these directories hold
+# exploratory work, raw data, and an unrelated Python virtual
+# environment that would otherwise slow the scan and pull in packages no
+# publication script uses. Most of these directories are absent from
+# this published repository; the entries are harmless no-ops here and
+# retained for consistency with the source repository.
 archives/
 balancecompt/
 data/
@@ -22,4 +20,3 @@ scripts/
 stats_des/
 sumpowerdep.R
 .venv/
-simple_regression/archives/

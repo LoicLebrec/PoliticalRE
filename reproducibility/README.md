@@ -7,7 +7,9 @@ inputs, see `/data_prep` at the repository root.
 
 ## Quick start
 
-Run from the repository root:
+This package presumes the raw data described in `/data_prep` is already
+present at the paths that document specifies; it is not included in this
+repository. With that in place, run from the repository root:
 
 ```
 Rscript reproducibility/run_pipeline.R
