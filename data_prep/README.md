@@ -40,9 +40,17 @@ pattern is implemented in `build_all_2024_2026.R`, which retrieves the
 `https://static.data.gouv.fr/resources/elections-legislatives-des-30-juin-et-7-juillet-2024-resultats-definitifs-du-1er-tour/20240711-075056/resultats-definitifs-par-communes.csv`.
 
 Candidate and council turnover (`code/shared_data/turnover_candidats.csv`)
-is computed rather than downloaded: `build_turnover_candidats.py`
-compares candidate lists between consecutive elections (2014, 2020, 2026)
-and counts the share of names that changed.
+is computed rather than downloaded, but the surviving script does not
+reproduce it. A script named `build_turnover_candidats.py` (present in
+two copies in the full research repository, identical apart from output
+path) computes turnover from candidate lists across consecutive
+elections. Tested directly: its output uses different column semantics
+(`n_candidats_t`/`n_candidats_prev`) and different values from the
+checksummed file (`n_elus_t`/`n_elus_prev`), indicating the checksummed
+file was built from elected-council rosters across all years, not
+candidate lists, by a different, non-surviving script. This script is
+not included in this repository, to avoid presenting a non-matching
+computation as a working reconstruction.
 
 `build_variableY.py` additionally corrects two errors present in the
 source data: it recomputes `recandidature` (candidacy, as distinct from
@@ -184,10 +192,13 @@ provides BANATIC's official pre-generated export and a commune/SIREN
 correspondence table, retained for reference.
 
 **`code/shared_data/closeness.csv`** — electoral closeness by commune and
-election. Computed internally rather than downloaded:
-`build_closeness.py` derives it from the project's own election data
-(vote margins for list-system elections, seat-threshold margins for
-majoritarian elections).
+election. Not an external dataset: a candidate script, `build_closeness.py`,
+derives a comparable measure from the project's own election data (vote
+margins for list-system elections, seat-threshold margins for
+majoritarian elections), but depends on additional source files not yet
+located in this repository (a population comparateur extract, a separate
+2020 seat-count file) and has not been tested against the checksummed
+file. See Outstanding items below.
 
 **`code/shared_data/control_group_baseline.csv`** — the unmatched control
 pool. No original construction script survives. The general method is
@@ -225,7 +236,7 @@ matching.
 
 ## Outstanding items
 
-Two items remain unresolved at the time of writing:
+Four items remain unresolved at the time of writing:
 
 1. The extraction script for `wind_speed_100m` (Section 3). The source is
    confirmed (Global Wind Atlas); implementation requires a raster
@@ -234,10 +245,18 @@ Two items remain unresolved at the time of writing:
    `control_group_baseline.csv` (Section 7). Two candidate explanations
    (commune fusion, department treatment count) have been tested and
    ruled out (see above).
+3. The construction script for `turnover_candidats.csv` (Section 1). A
+   plausible candidate script was tested directly and found to compute a
+   different quantity (candidate turnover, not elected-council turnover)
+   than the checksummed file contains.
+4. The construction script for `closeness.csv` (Section 7). A plausible
+   candidate script exists but depends on additional source files (a
+   population comparateur extract, a separate 2020 seat-count file) not
+   yet located; it has not been tested and is not presented as verified.
 
-Neither item affects the validity of the results reported in the paper;
-both concern exact reproducibility of two auxiliary input files from
-their original sources.
+None of these items affects the validity of the results reported in the
+paper; all four concern exact reproducibility of auxiliary input files
+from their original construction process.
 
 ## Verifying data integrity
 
