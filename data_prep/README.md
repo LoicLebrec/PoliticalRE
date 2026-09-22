@@ -1,203 +1,238 @@
 # Data preparation
 
-Where the raw data behind this paper comes from, and how it gets cleaned
-into the inputs `/reproducibility` runs on. Read this if you want the full
-chain from download to final table; skip straight to `/reproducibility` if
-you're happy starting from already-cleaned data.
+This document describes the origin of the raw data used in this project
+and the processing steps that produce the analysis-ready inputs consumed
+by `/reproducibility`. Consult this document for the complete chain from
+data acquisition to final table; consult `/reproducibility` alone to begin
+from the cleaned inputs.
 
-Every cleaning step is a script you can read in this repo's history, not a
-hand-edit nobody can check. For the handful of files with no script
-attached, `checksums.sha256` pins the exact bytes so you can at least
-verify you're working from the same copy we did. Run
-`bash verify_checksums.sh` to check.
+Every processing step is implemented as a versioned script and is
+traceable in this repository's history. For the small number of files
+with no corresponding script, `checksums.sha256` fixes the exact bytes so
+that a copy can be verified against the version used in this analysis.
+Run `bash verify_checksums.sh` to perform this check.
 
 ## 1. Elections (municipal, 2008-2026)
 
-The base panel, `election_data/VariablesY/variableY.csv`, is built by
-`build_variableY.py` out of three election files (2008-2020 results from
-the Ministry of the Interior + Wikipedia, candidate lists and round counts,
-and the 2026 results) plus the INSEE commune reference and density grid
-(§4). Municipal and legislative results generally come from data.gouv.fr's
-static resource mirror -- you can see this pattern working in
-`build_all_2024_2026.R`, which pulls the 2024 legislative results straight
-from
+The base panel, `election_data/VariablesY/variableY.csv`, is constructed
+by `build_variableY.py` from three election files (2008-2020 results from
+the Ministry of the Interior and Wikipedia, candidate lists and round
+counts, and the 2026 results), combined with the INSEE commune reference
+table and density grid (Section 4). Municipal and legislative results
+generally originate from data.gouv.fr's static resource mirror; this
+pattern is implemented in `build_all_2024_2026.R`, which retrieves the
+2024 legislative results from
 `https://static.data.gouv.fr/resources/elections-legislatives-des-30-juin-et-7-juillet-2024-resultats-definitifs-du-1er-tour/20240711-075056/resultats-definitifs-par-communes.csv`.
 
-Candidate/council turnover (`code/shared_data/turnover_candidats.csv`) is
-computed, not downloaded: `build_turnover_candidats.py` looks at who ran in
-2014/2020/2026 vs. the prior election and counts how many names changed.
+Candidate and council turnover (`code/shared_data/turnover_candidats.csv`)
+is computed rather than downloaded: `build_turnover_candidats.py`
+compares candidate lists between consecutive elections (2014, 2020, 2026)
+and counts the share of names that changed.
 
-`build_variableY.py` also fixes two things in the source data: it
-recomputes `recandidature` properly (candidacy, not just reelection) and
-recovers the real round count (`nb_tours`), both documented in the
-script's header.
+`build_variableY.py` additionally corrects two errors present in the
+source data: it recomputes `recandidature` (candidacy, as distinct from
+reelection) and recovers the correct round count (`nb_tours`). Both
+corrections are documented in the script header.
 
 ## 2. Mayors (biographical panel)
 
-`data/maires_panel.csv` comes from the **Répertoire National des Élus**
-(RNE), France's official register of elected officials:
+`data/maires_panel.csv` is derived from the **Répertoire National des
+Élus** (RNE), France's official register of elected officials:
 https://www.data.gouv.fr/fr/datasets/donnees-du-repertoire-national-des-elus/.
-It's built by `code/build_maires_panel.py`, which is honestly the
-best-documented script in the whole project -- its docstring spells out
-every input file and the merge/fallback logic between RNE vintages
-(December 2025 primarily, 2019 and 2021 as fallback, plus 2025/2026 files).
-Merged into the panel by `code/enrich_panel_maires.R`.
+It is constructed by `code/build_maires_panel.py`, the most thoroughly
+documented script in this project; its docstring specifies every input
+file and the merge/fallback logic applied across RNE vintages (the
+December 2025 snapshot as primary source, 2019 and 2021 as fallback, plus
+2025/2026 files). It is merged into the panel by
+`code/enrich_panel_maires.R`.
 
 ## 3. Wind installations
 
-`data/parceolien/Parc.csv`, the wind park registry, comes from
-**Géorisques**, via its WFS (map data) service rather than a plain file
-download -- `code/shared_data/fetch_parc_georisques.py` hits it directly:
+`data/parceolien/Parc.csv`, the wind park registry, is sourced from
+**Géorisques** via its WFS (map data) service rather than a static file
+download. `code/shared_data/fetch_parc_georisques.py` retrieves it
+directly:
 https://georisques.gouv.fr/services?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=ms:parc_wfs&SRSNAME=urn:ogc:def:crs:EPSG::3857&OUTPUTFORMAT=CSV.
-One request, no pagination, and the columns match Parc.csv exactly (26/26).
-The registry updates daily, so a fresh pull won't be row-identical to any
-older copy -- that's the live data changing, not a mismatch to chase.
+A single request returns the full dataset (no pagination required), and
+the returned columns match `Parc.csv` exactly (26/26). The registry is
+updated daily; a fresh pull will therefore not be row-identical to an
+earlier copy. This reflects the underlying data changing over time, not
+an inconsistency in the extraction method.
 
-A commune counts as "treated" from its first park's *commissioning* date,
-not its authorization date -- see `/reproducibility/README.md` caveat 5.
+A commune is classified as treated from the *commissioning* date of its
+first park, not its authorization date. See `/reproducibility/README.md`,
+caveat 5.
 
-`code/external_wind_voteshare.csv` has two columns of very different
-provenance. `wind_speed_100m` is almost certainly from the **Global Wind
-Atlas** (DTU / World Bank), which publishes exactly this kind of layer for
-France at https://globalwindatlas.info/area/France -- no fetch script yet,
-but the name and height match too well to be a coincidence.
-`voix_gagnant_mean/min/max` turned out to be simpler than it looked: it's
-just the national mean/min/max of the winner's vote count for that
-election year, the same three numbers repeated on every commune row.
-`code/shared_data/build_voix_gagnant_stats.R` recomputes them from
-`election_data/VariablesY/variableY.csv` and reproduces the existing file
-byte-for-byte (checked: identical checksum, all 4 years). It only rebuilds
-that column, though -- `wind_speed_100m` stays as-is since its own source
-isn't pinned down yet.
+`code/external_wind_voteshare.csv` contains two columns of distinct
+provenance. `wind_speed_100m` is confirmed by the author to originate from
+the **Global Wind Atlas** (DTU / World Bank), which publishes the
+corresponding layer for France at
+https://globalwindatlas.info/area/France. No extraction script exists for
+this column: the source is a raster product, so reconstruction requires
+downloading the GeoTIFF and performing a per-commune spatial extraction
+rather than a direct file download. `voix_gagnant_mean/min/max` is the
+national mean, minimum, and maximum of the winning candidate's vote count
+for the corresponding election year, held constant across all communes in
+that year. `code/shared_data/build_voix_gagnant_stats.R` recomputes these
+three values from `election_data/VariablesY/variableY.csv` and reproduces
+the existing file exactly (verified by identical checksum for all four
+election years). This script updates only that column; `wind_speed_100m`
+is left unchanged, as its extraction is not yet implemented.
 
-## 4. Geography / commune reference data
+## 4. Geography and commune reference data
 
 - INSEE's commune reference table (COG 2024):
   https://www.insee.fr/fr/statistiques/fichier/7766585/v_commune_2024.csv
-  and the matching `v_mvt_commune_2024.csv`.
+  and the corresponding `v_mvt_commune_2024.csv`.
 - INSEE's density grid (rural/urban classification):
-  https://www.insee.fr/fr/information/8571524. We use the 2021 vintage.
-- Department boundaries, from
-  https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements.geojson
-  -- downloaded and cached automatically the first time the pipeline runs.
-- Commune geocoding via `geo.api.gouv.fr/communes`, a free public API, used
-  in some of the older enrichment scripts.
-- FiLoSoFi (income, see §6): https://www.insee.fr/fr/metadonnees/source/serie/s1172.
+  https://www.insee.fr/fr/information/8571524. The 2021 vintage is used.
+- Department boundaries:
+  https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements.geojson,
+  downloaded and cached automatically on the first pipeline run.
+- Commune geocoding via `geo.api.gouv.fr/communes`, a public API used by
+  earlier enrichment scripts.
+- FiLoSoFi (income; see Section 6):
+  https://www.insee.fr/fr/metadonnees/source/serie/s1172.
 
-## 5. BPE (facility closures/openings)
+## 5. BPE (facility openings and closures)
 
-BPE stands for **Base Permanente des Équipements** -- INSEE's yearly census
-of facilities and services (schools, hospitals, shops, public services...)
-by commune. It's open data, published directly on data.gouv.fr:
-https://www.data.gouv.fr/datasets/base-permanente-des-equipements. We use
-it for the robustness placebo checks: school closures, CADA (asylum
-reception center) openings, and a 12-facility "desertification" basket.
+BPE denotes the **Base Permanente des Équipements**, INSEE's annual
+census of facilities and services (schools, hospitals, retail, public
+services) by commune. It is published as open data directly on
+data.gouv.fr: https://www.data.gouv.fr/datasets/base-permanente-des-equipements.
+It is used for the robustness placebo analyses: school closures, CADA
+(asylum reception center) openings, and a 12-facility "desertification"
+basket.
 
-The files we actually have (`data/BPE_adisp/lil-XXXX.csv.zip`, one per
-vintage from 2007 to 2020) are named after Progedo/ADISP catalogue IDs
-rather than the data.gouv.fr filenames -- `lil-0423` is 2007, `lil-1444` is
-2019, `lil-1483` is 2020, and so on
+The raw files held in this project (`data/BPE_adisp/lil-XXXX.csv.zip`,
+one per vintage from 2007 to 2020) are named according to Progedo/ADISP
+catalogue identifiers rather than data.gouv.fr filenames: `lil-0423`
+corresponds to 2007, `lil-1444` to 2019, `lil-1483` to 2020, and so on
 (https://data.progedo.fr/series/adisp/base-permanente-des-equipements-bpe).
-Same underlying INSEE data, just pulled through a research-data portal
-instead of data.gouv.fr directly, which is probably why it needed
-registration rather than a plain download.
+This is the same underlying INSEE data, obtained through a research-data
+distribution portal rather than data.gouv.fr directly, which likely
+accounts for the registration requirement.
 
-Turning the raw zips into `data/BPE_adisp/labeled/bpeXX_ensemble_labeled.csv`
-still isn't scripted here. But the next step -- `labeled/` into the
-`derived/*_by_commune_year.csv` files the pipeline actually reads (CADA
-centers, elementary schools, maternity wards, the 12-facility basket) --
-is: `code/build_bpe_derived.R` rebuilds all four, and its output matches
-the checksummed files exactly (verified byte-for-byte before that script
-was committed). The facility-code mapping it uses is the same one
-`code/robustness/robustness_common.R` already had, since a couple of BPE
-codes were renamed across vintages (2020's pharmacy code, 2025's several).
+The transform from raw archives to
+`data/BPE_adisp/labeled/bpeXX_ensemble_labeled.csv` is not yet scripted
+in this repository. The subsequent step, from `labeled/` to the
+`derived/*_by_commune_year.csv` files consumed by the pipeline (CADA
+centers, elementary schools, maternity wards, the 12-facility basket), is
+implemented in `code/build_bpe_derived.R`, whose output was verified to
+match the checksummed files exactly prior to being committed. The
+facility-code mapping applied is identical to the one already present in
+`code/robustness/robustness_common.R`, required because several BPE codes
+were renamed across vintages.
 
 ## 6. Income
 
 FiLoSoFi (Fichier localisé social et fiscal) is INSEE's standard
-commune-level median income figure --
-https://www.insee.fr/fr/metadonnees/source/serie/s1172. We use the 2014
-and 2017 snapshots as a baseline-income control in the TWFE robustness
-grid and the Heckman selection model. Read from a raw INSEE download under
-`election_data/data_quentin/2026/insee_raw/filosofi_series/`, not part of
-this repo, no fetch script yet.
+commune-level median disposable income measure:
+https://www.insee.fr/fr/metadonnees/source/serie/s1172. The 2014 and 2017
+snapshots are used as a baseline-income control in the TWFE robustness
+grid and the Heckman selection model. These are read from a raw INSEE
+download under `election_data/data_quentin/2026/insee_raw/filosofi_series/`,
+not included in this repository; no extraction script exists yet.
 
 ## 7. Municipal finance and intercommunality
 
-Three files that feed the Heckman selection instrument:
+Four files feed the Heckman selection instrument.
 
-**`code/shared_data/dette_communes.csv`** -- municipal debt, 2013, 2019 and
-2024. `code/shared_data/fetch_dette_communes.py` rebuilds it from the
-data.economie.gouv.fr API, dataset family
-`balances-comptables-des-communes-en-{year}` -- run and checked: matches
-the original to floating-point rounding (a handful of centimes off from
-summation order, nothing structural).
+**`code/shared_data/dette_communes.csv`** — municipal debt, 2013, 2019,
+and 2024. `code/shared_data/fetch_dette_communes.py` reconstructs this
+file from the data.economie.gouv.fr API, dataset family
+`balances-comptables-des-communes-en-{year}`. The script was executed and
+its output matches the original to floating-point rounding (differences
+of a few centimes attributable to summation order, not a structural
+discrepancy).
 
-**`code/shared_data/invest_communes_2013.csv` / `invest_communes_2019.csv`**
--- municipal investment, same years. `code/shared_data/fetch_invest_communes.py`
-pulls the same API's immobilisation accounts (compte class 2) instead of
-debt (compte 16x) -- same commune count as the original (36,681), values
-close but consistently about 1% off, checked against a sample. So compte
-class 2 is the right neighborhood but not the exact account scope the
-original `invest_sd` used (probably needs some sub-accounts excluded --
-amortization or financial placements are the likely candidates, not
-capital spending). Left the script in even though it doesn't match yet:
-it's a real starting point for whoever narrows this down, not a guess
-from nothing.
+**`code/shared_data/invest_communes_2013.csv` /
+`invest_communes_2019.csv`** — municipal investment, same years.
+`code/shared_data/fetch_invest_communes.py` retrieves immobilisation
+accounts (compte class 2) from the same API in place of debt (compte
+16x). The reconstructed file has the same commune count as the original
+(36,681) but values approximately 1% higher on average, checked against a
+sample. Compte class 2 is therefore the correct account family but not
+the exact scope used to construct the original `invest_sd` column; a
+subset of sub-accounts (amortization or financial placements are
+plausible candidates) likely requires exclusion. The script is retained
+as a documented starting point despite not yet reproducing the original
+file.
 
-**`code/shared_data/epci_communes_banatic.csv`** -- which intercommunality
-group each commune belongs to, from **BANATIC**.
-`code/shared_data/fetch_epci_banatic.py` pulls it from data.gouv.fr's
-"Base nationale sur les intercommunalités" dataset, resource
-`perimetre-epci-a-fp.csv` -- confirmed byte-for-byte identical to the
-existing file (checked directly, not just close). That dataset page also
-has BANATIC's own official export and a plain commune/SIREN table, if
-either turns out more useful for something else later.
+**`code/shared_data/epci_communes_banatic.csv`** — intercommunality
+membership per commune, from **BANATIC**.
+`code/shared_data/fetch_epci_banatic.py` retrieves this file from
+data.gouv.fr's "Base nationale sur les intercommunalités" dataset,
+resource `perimetre-epci-a-fp.csv`. The reconstructed file is confirmed
+byte-for-byte identical to the existing file. The same dataset page also
+provides BANATIC's official pre-generated export and a commune/SIREN
+correspondence table, retained for reference.
 
-**`code/shared_data/closeness.csv`** -- how close each election was, by
-commune. Also home-made: `build_closeness.py` computes it from our own
-election data (vote margins for list elections, seat-threshold margins for
-majoritarian ones), nothing external to chase.
+**`code/shared_data/closeness.csv`** — electoral closeness by commune and
+election. Computed internally rather than downloaded:
+`build_closeness.py` derives it from the project's own election data
+(vote margins for list-system elections, seat-threshold margins for
+majoritarian elections).
 
-**`code/shared_data/control_group_baseline.csv`** -- the unmatched control
-pool. No original script survives, but
-`code/shared_data/build_control_group_baseline.R` rebuilds it from the
-confirmed method: rural (INSEE density 5-7) and never treated, filtered
-from our own panel -- the same two filters `code/build_control_group.R`
-applies for the matched pool, just without that script's extra matching
-step. Running it against the current panel recovers 21,740 of the
-original file's 21,744 communes (99.98%) and lets through 5,827 more that
-aren't in the original -- so this is the best-known reconstruction, not a
-byte-for-byte match. Good enough to use as-is; there's one more filter in
-the original nobody has identified.
+**`code/shared_data/control_group_baseline.csv`** — the unmatched control
+pool. No original construction script survives. The general method is
+confirmed and implemented in
+`code/shared_data/build_control_group_baseline.R`: rural communes (INSEE
+density 5-7) that were never treated, filtered from the project's own
+panel — the same two filters applied by `code/build_control_group.R` for
+the matched pool, without that script's subsequent matching step.
+Applied to the current panel, this rule recovers 21,740 of the original
+file's 21,744 communes (99.98% agreement) and additionally selects 5,827
+communes not present in the original file. This constitutes the
+best-available reconstruction rather than an exact match; one additional
+filter present in the original construction has not been identified. Two
+candidate explanations have been tested and rejected. A commune-fusion
+hypothesis (that the discrepancy reflects communes excluded via the
+`commune_fixe` flag used elsewhere in the pipeline) reduces the match
+rate rather than improving it: 512 communes in the original file are
+themselves not `commune_fixe == 1`. A department-treatment-count
+hypothesis (applying the same "department with more than 3 treated
+communes" filter that `code/build_control_group.R` uses for the matched
+pool) reduces the match rate to 84.5%, indicating that this filter is
+specific to the matched pool and not part of the baseline pool's
+construction. The residual filter remains unidentified. The original
+frozen file is retained as the authoritative input for all results
+reported in the paper; the reconstruction script is retained as a
+documented approximation, not a replacement.
 
-Two files that used to be listed here turned out not to matter:
-`data/WindFarm_France(Feuil1).csv` (superseded by `Parc.csv`, not even on
-disk anymore) and the raw Global Wind Atlas raster,
-`data/wind/FRA_wind-speed_100m.tif` -- not to be confused with
-`wind_speed_100m` the *column* in `external_wind_voteshare.csv`, which we
-do use, for control-group matching.
+Two files previously listed in this document were confirmed by the
+author to be unused and were removed from the working tree:
+`data/WindFarm_France(Feuil1).csv` (superseded by `Parc.csv`) and the raw
+Global Wind Atlas raster, `data/wind/FRA_wind-speed_100m.tif`. Note that
+this raster is distinct from `wind_speed_100m`, the column in
+`external_wind_voteshare.csv`, which remains in use for control-group
+matching.
 
-## What's still not scripted
+## Outstanding items
 
-One thing: the extra ~5,800-commune gap in `control_group_baseline.csv`.
-The main filter rule is confirmed and scripted
-(`build_control_group_baseline.R`, 99.98% match), but it over-generates
-relative to the original file by that many communes, and the exact extra
-filter that trims it down hasn't been identified. Doesn't affect using the
-file as it stands -- it's about regenerating this exact file from
-nothing, not about anything being wrong with it. `wind_speed_100m`'s exact
-source (very likely Global Wind Atlas, see §3) is the other loose end, but
-that one just needs a fetch script written, not a mystery solved.
+Two items remain unresolved at the time of writing:
 
-## Checking your copy
+1. The extraction script for `wind_speed_100m` (Section 3). The source is
+   confirmed (Global Wind Atlas); implementation requires a raster
+   download and spatial join rather than a tabular fetch.
+2. The residual filter accounting for the 5,827-commune discrepancy in
+   `control_group_baseline.csv` (Section 7). Two candidate explanations
+   (commune fusion, department treatment count) have been tested and
+   ruled out (see above).
+
+Neither item affects the validity of the results reported in the paper;
+both concern exact reproducibility of two auxiliary input files from
+their original sources.
+
+## Verifying data integrity
 
 ```
 cd data_prep
 bash verify_checksums.sh
 ```
 
-Checks every file in `checksums.sha256` against what's on disk. If
-something doesn't match, either it got edited/re-downloaded since this
-snapshot, or you're missing it -- either way, worth finding out before
-trusting a table built from it.
+This command checks every file listed in `checksums.sha256` against the
+corresponding file on disk. A mismatch indicates that the file has been
+modified or re-downloaded since this snapshot, or is missing from the
+current checkout. Any table built from a mismatched file should not be
+trusted until the discrepancy is resolved.

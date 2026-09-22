@@ -1,9 +1,9 @@
 # Wind farms and local elections in France — replication package
 
-Reproduces every table in the paper studying the local political effects
-of communes building or planning wind farms.
+This repository reproduces every table in the paper examining the local
+political effects of communes that build or plan wind farms.
 
-## Reproduce the tables
+## Reproducing the tables
 
 ```
 git clone <this repo>
@@ -12,32 +12,34 @@ Rscript -e 'install.packages("renv"); renv::restore()'
 Rscript reproducibility/run_pipeline.R
 ```
 
-Runs all 14 build steps in dependency order and stops on the first
-failure. Takes roughly 10 minutes end to end. See
-`reproducibility/README.md` for the full pipeline breakdown, requirements,
-and caveats worth reading before trusting a from-scratch run.
+This executes all pipeline steps in dependency order and halts on the
+first failure. Total runtime is approximately 10 minutes. See
+`reproducibility/README.md` for the complete pipeline breakdown,
+requirements, and caveats that should be reviewed before relying on a
+from-scratch run.
 
-`reproducibility/table_manifest.csv` maps each of the paper's 15 tables to
-the exact script that builds it, and `reproducibility/reference_output/`
-has known-good output to diff your rerun against.
+`reproducibility/table_manifest.csv` maps each of the paper's 15 tables
+to the script that produces it. `reproducibility/reference_output/`
+contains verified output for comparison against a subsequent run.
 
-## Where the data comes from
+## Data sources
 
-`/data_prep` documents every input this pipeline reads: what it is, where
-to download it, what cleans it, and checksums to verify you have the right
-bytes. A few inputs have no confirmed source or writer script — those gaps
-are disclosed there rather than hidden.
+`/data_prep` documents every input consumed by this pipeline: its origin,
+how to obtain it, how it is processed, and checksums to verify data
+integrity. A small number of inputs lack a fully confirmed source or a
+surviving construction script; these are disclosed explicitly in that
+document rather than omitted.
 
-## Layout
+## Repository layout
 
-- `code/` — the analysis: panel construction, control-group matching, and
-  one subfolder per method (`twfe/`, `heckman/`, `callaway_santanna/`,
-  `descriptive/`, `robustness/`), each producing the tables attributed to
-  it in the paper.
+- `code/` — the analysis code: panel construction, control-group
+  matching, and one subdirectory per method (`twfe/`, `heckman/`,
+  `callaway_santanna/`, `descriptive/`, `robustness/`), each producing
+  the tables attributed to it in the paper.
 - `reproducibility/` — the table manifest, pipeline runner, and reference
   output described above.
 - `data_prep/` — data sources and provenance, described above.
 
-This is a trimmed, publication-scoped snapshot of a larger research
-repository: exploratory analysis, drafts, and unrelated side-projects are
-not included.
+This repository is a trimmed, publication-scoped extract of a larger
+research repository. Exploratory analysis, drafts, and unrelated
+side-projects are not included.
