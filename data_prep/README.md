@@ -48,11 +48,13 @@ Merged into the panel by `code/enrich_panel_maires.R`.
 `data/parceolien/Parc.csv`, the wind park registry, comes from
 **Géorisques**'s "Éolien terrestre" database:
 https://www.georisques.gouv.fr/donnees/bases-de-donnees/eolien-terrestre.
-It's updated daily and downloadable as CSV/ZIP, nationally or by region.
-There's no fetch script for it in this repo yet (only
-`fetch_georisques_icpe.py`, which hits a related but different Géorisques
-endpoint, the ICPE permits API) -- worth pinning the exact export date this
-file was pulled on.
+It's updated daily and downloadable as CSV/ZIP, nationally or by region --
+but only through the site's own map interface, not a stable public API or
+static file URL (checked: no matching dataset on data.gouv.fr, no working
+endpoint under georisques.gouv.fr/api/v1/). `fetch_georisques_icpe.py`
+covers a different, scriptable Géorisques endpoint (ICPE permits), which
+is why that one has a fetch script and this one doesn't. Downloading a
+fresh copy means using the site directly.
 
 A commune counts as "treated" from its first park's *commissioning* date,
 not its authorization date -- see `/reproducibility/README.md` caveat 5.
@@ -99,14 +101,15 @@ Same underlying INSEE data, just pulled through a research-data portal
 instead of data.gouv.fr directly, which is probably why it needed
 registration rather than a plain download.
 
-What's missing is the two cleaning steps in between: turning those raw
-zips into `data/BPE_adisp/labeled/bpeXX_ensemble_labeled.csv`, and then
-into the `derived/*_by_commune_year.csv` files the pipeline actually reads
-(CADA centers, elementary schools, maternity wards, the 12-facility
-basket). Neither transform script turned up anywhere in the repo. The
-`derived/` files themselves are checksummed, so at least you can confirm
-you're working from the same bytes, even without the script that made
-them.
+Turning the raw zips into `data/BPE_adisp/labeled/bpeXX_ensemble_labeled.csv`
+still isn't scripted here. But the next step -- `labeled/` into the
+`derived/*_by_commune_year.csv` files the pipeline actually reads (CADA
+centers, elementary schools, maternity wards, the 12-facility basket) --
+is: `code/build_bpe_derived.R` rebuilds all four, and its output matches
+the checksummed files exactly (verified byte-for-byte before that script
+was committed). The facility-code mapping it uses is the same one
+`code/robustness/robustness_common.R` already had, since a couple of BPE
+codes were renamed across vintages (2020's pharmacy code, 2025's several).
 
 ## 6. Income
 
@@ -122,29 +125,33 @@ this repo, no fetch script yet.
 
 Three files that feed the Heckman selection instrument:
 
-**`code/shared_data/dette_communes.csv`** -- municipal debt, 2013 and 2019.
-This one's fully traced: `dette_communes_desc.py` pulls it straight from
-the data.economie.gouv.fr API, dataset family
-`balances-comptables-des-communes-en-{year}`, e.g.
-https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/balances-comptables-des-communes-en-2019/records
-(swap the year for other vintages).
+**`code/shared_data/dette_communes.csv`** -- municipal debt, 2013, 2019 and
+2024. `code/shared_data/fetch_dette_communes.py` rebuilds it from the
+data.economie.gouv.fr API, dataset family
+`balances-comptables-des-communes-en-{year}` -- run and checked: matches
+the original to floating-point rounding (a handful of centimes off from
+summation order, nothing structural).
 
 **`code/shared_data/invest_communes_2013.csv` / `invest_communes_2019.csv`**
--- municipal investment, same years. No script found for these, but
-they're almost certainly the same data family as the debt figures above:
-data.gouv.fr's "Comptes individuels des communes"
-(https://www.data.gouv.fr/datasets/comptes-individuels-des-communes),
-which keeps historical vintages back to 2012 as attachments on that same
-page. Worth pulling the 2013/2019 files and diffing a few rows to confirm
-before writing a fetch script.
+-- municipal investment, same years. `code/shared_data/fetch_invest_communes.py`
+pulls the same API's immobilisation accounts (compte class 2) instead of
+debt (compte 16x) -- same commune count as the original (36,681), values
+close but consistently about 1% off, checked against a sample. So compte
+class 2 is the right neighborhood but not the exact account scope the
+original `invest_sd` used (probably needs some sub-accounts excluded --
+amortization or financial placements are the likely candidates, not
+capital spending). Left the script in even though it doesn't match yet:
+it's a real starting point for whoever narrows this down, not a guess
+from nothing.
 
 **`code/shared_data/epci_communes_banatic.csv`** -- which intercommunality
 group each commune belongs to. This is **BANATIC**, the government's own
 database for this exact question: https://www.banatic.interieur.gouv.fr,
-also mirrored on data.gouv.fr at
-https://www.data.gouv.fr/datasets/banatic-base-nationale-sur-lintercommunalit.
-The data.gouv.fr mirror is UTF-8 where our file is `latin1` -- might be
-worth switching once someone confirms it's the same vintage.
+also listed on data.gouv.fr at
+https://www.data.gouv.fr/datasets/banatic-base-nationale-sur-lintercommunalit
+-- but neither one exposes a plain downloadable file or API; both hand you
+an interactive query tool. No fetch script for this one; download it by
+hand from either site.
 
 **`code/shared_data/closeness.csv`** -- how close each election was, by
 commune. Also home-made: `build_closeness.py` computes it from our own
@@ -152,37 +159,16 @@ election data (vote margins for list elections, seat-threshold margins for
 majoritarian ones), nothing external to chase.
 
 **`code/shared_data/control_group_baseline.csv`** -- the unmatched control
-pool. No script survives, but the method is straightforward and confirmed:
-filter our own commune-election panel down to communes that are rural
-(INSEE density 5-7) and never treated -- exactly the same two filters
-`code/build_control_group.R` applies for the matched pool, just without
-that script's extra matching step. As a sanity check, applying that rule
-by hand to the 2014 panel recovers 21,740 of this file's 21,744 communes
-(99.98%), which confirms the method. About 6,000 communes it lets through
-don't end up in the actual file, so there's one more filter in there we
-haven't pinned down -- doesn't affect using the file, just means it's not
-regeneratable byte-for-byte yet.
-
-## Next steps
-
-Roughly in order of how much they're worth doing:
-
-1. Pin the exact `Parc.csv` export date/vintage from Géorisques and write
-   a fetch script for it, same pattern as `fetch_georisques_icpe.py`.
-2. Port `dette_communes_desc.py` into this package -- the source is
-   already fully confirmed, it just needs to actually live here.
-3. Download the 2013/2019 files from data.gouv.fr's "Comptes individuels
-   des communes", confirm they match `invest_communes_2013/2019.csv`, and
-   write a fetch script.
-4. Check whether the BANATIC data.gouv.fr mirror matches
-   `epci_communes_banatic.csv`'s vintage, and switch to it if so (it's
-   UTF-8, ours is `latin1`).
-5. Track down or rebuild the two missing BPE transform scripts
-   (`lil-*.zip` -> `labeled/` -> `derived/`). Worth a last look outside
-   this repo before rebuilding from scratch.
-6. Figure out the extra filter behind `control_group_baseline.csv`'s
-   ~6,000-commune gap. Not urgent -- the file works fine as-is, this is
-   about full byte-for-byte reproducibility, not correctness.
+pool. No original script survives, but
+`code/shared_data/build_control_group_baseline.R` rebuilds it from the
+confirmed method: rural (INSEE density 5-7) and never treated, filtered
+from our own panel -- the same two filters `code/build_control_group.R`
+applies for the matched pool, just without that script's extra matching
+step. Running it against the current panel recovers 21,740 of the
+original file's 21,744 communes (99.98%) and lets through 5,827 more that
+aren't in the original -- so this is the best-known reconstruction, not a
+byte-for-byte match. Good enough to use as-is; there's one more filter in
+the original nobody has identified.
 
 Two files that used to be listed here turned out not to matter:
 `data/WindFarm_France(Feuil1).csv` (superseded by `Parc.csv`, not even on
@@ -190,6 +176,24 @@ disk anymore) and the raw Global Wind Atlas raster,
 `data/wind/FRA_wind-speed_100m.tif` -- not to be confused with
 `wind_speed_100m` the *column* in `external_wind_voteshare.csv`, which we
 do use, for control-group matching.
+
+## What's still not scripted
+
+Everything above either has a working fetch/build script now or a
+confirmed source you can pull from by hand. Three things don't, and
+probably won't without new information:
+
+- **`Parc.csv`** -- source confirmed (Géorisques), but it's only
+  available through their interactive map tool, not a stable file URL or
+  API.
+- **`epci_communes_banatic.csv`** -- same situation: BANATIC is
+  confirmed, but both the official site and its data.gouv.fr mirror are
+  query tools, not downloadable files.
+- **`voix_gagnant_mean/min/max`** (in `external_wind_voteshare.csv`) and
+  the extra ~5,800-commune gap in `control_group_baseline.csv` -- both
+  have a confirmed method (home-made vote counting; a filter rule) but no
+  surviving script to run. The numbers work, they're just not
+  regeneratable from scratch without rewriting that logic.
 
 ## Checking your copy
 
