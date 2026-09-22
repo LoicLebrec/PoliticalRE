@@ -8,22 +8,22 @@
 \toprule
 Cohort & Equation & N & N treated & Estimate & SE & 95\% CI & p & rho\\
 \midrule
- & Selection (candidacy) & 6910 & 381 & +0.045 & 0.071 & {}[-0.095, 0.185] & 0.526 & 0.053\\
+ & Selection (candidacy) & 6782 & 373 & +0.056 & 0.072 & {}[-0.086, 0.198] & 0.437 & 0.081\\
 \cmidrule{2-9}
-\multirow[t]{-2}{*}{\raggedright\arraybackslash A (2014)} & Outcome (reelection | ran again) & 6910 & 381 & +0.006 & 0.021 & {}[-0.034, 0.047] & 0.753 & 0.053\\
+\multirow[t]{-2}{*}{\raggedright\arraybackslash A (2014)} & Outcome (reelection | ran again) & 6782 & 373 & +0.004 & 0.021 & {}[-0.037, 0.044] & 0.854 & 0.081\\
 \cmidrule{1-9}
- & Selection (candidacy) & 7415 & 496 & -0.082 & 0.062 & {}[-0.203, 0.038] & 0.181 & 0.443\\
+ & Selection (candidacy) & 7518 & 501 & -0.083 & 0.061 & {}[-0.203, 0.037] & 0.176 & 0.410\\
 \cmidrule{2-9}
-\multirow[t]{-2}{*}{\raggedright\arraybackslash B (2020)} & Outcome (reelection | ran again) & 7415 & 496 & -0.030* & 0.018 & {}[-0.066, 0.006] & 0.098 & 0.443\\
+\multirow[t]{-2}{*}{\raggedright\arraybackslash B (2020)} & Outcome (reelection | ran again) & 7518 & 501 & -0.027 & 0.018 & {}[-0.063, 0.008] & 0.129 & 0.410\\
 \cmidrule{1-9}
- & Selection (candidacy) & 5329 & 255 & +0.073 & 0.084 & {}[-0.093, 0.238] & 0.390 & -0.838\\
+ & Selection (candidacy) & 5443 & 272 & +0.036 & 0.081 & {}[-0.123, 0.196] & 0.653 & -0.819\\
 \cmidrule{2-9}
-\multirow[t]{-2}{*}{\raggedright\arraybackslash C (2026)} & Outcome (reelection | ran again) & 5329 & 255 & -0.008 & 0.039 & {}[-0.085, 0.068] & 0.830 & -0.838\\
+\multirow[t]{-2}{*}{\raggedright\arraybackslash C (2026)} & Outcome (reelection | ran again) & 5443 & 272 & +0.002 & 0.037 & {}[-0.071, 0.075] & 0.953 & -0.819\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
 \item \textit{Note: } 
-\item Selection: recandidature $\sim$ treatment + nb\_mandats (exclusion restriction, consecutive prior terms) + log\_pop. Outcome: reconduit $\sim$ treatment + log\_pop (linear probability, coefficient = marginal effect). sampleSelection::heckit(method="2step"), analytic SE correction for the generated-regressor problem (Heckman 1979). rho = selection-outcome error correlation; identification requires rho in [-1,1] (true for all 3 cohorts here). TREATMENT: rural density 5-7, 0 wind farms -> >=1 by election year (cohort-specific window). No clustering: one row per commune per cohort (cross-section). CAUTION: nb\_mandats is a weak exclusion restriction -- it plausibly affects reelection directly (voter fatigue / accumulated incumbency advantage after many terms), not only through the candidacy decision. Numerical identification (rho in [-1,1]) does not by itself establish a credible exclusion restriction; read this model's estimates with that in mind. *** p<0.01, ** p<0.05, * p<0.10.
+\item Selection: recandidature ~ treatment + nb_mandats (exclusion restriction, consecutive prior terms) + log_pop. Outcome: reconduit ~ treatment + log_pop (linear probability, coefficient = marginal effect). sampleSelection::heckit(method="2step"), analytic SE correction for the generated-regressor problem (Heckman 1979). rho = selection-outcome error correlation; identification requires rho in [-1,1] (true for all 3 cohorts here). TREATMENT: rural density 5-7, 0 wind farms -> >=1 by election year (cohort-specific window). No clustering: one row per commune per cohort (cross-section). CAUTION: nb_mandats is a weak exclusion restriction: it plausibly affects reelection directly (voter fatigue / accumulated incumbency advantage after many terms), not only through the candidacy decision. Numerical identification (rho in [-1,1]) does not by itself establish a credible exclusion restriction; read this model's estimates with that in mind. *** p<0.01, ** p<0.05, * p<0.10.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}

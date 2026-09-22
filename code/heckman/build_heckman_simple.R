@@ -8,7 +8,7 @@
 # Deliberately NOT the full-control spec (competitif interaction + age/
 # homme/epci/dep/income/invest/dette): that one has separation issues
 # (epci_type=="0", thin dep cells) and unstable interaction cells (n<30 for
-# some cohort x competitif combos, see cell_check() in run_morvan_competitif.R).
+# some cohort x competitif combos, see cell_check() in heckman_selection_instrument.R).
 # This is the stripped-down version that stays identified (rho in [-1,1])
 # for all three cohorts:
 #   Selection : recandidature ~ traitement + nb_mandats (exclusion) + log_pop
@@ -27,11 +27,11 @@ suppressPackageStartupMessages({
 PROJECT <- Sys.getenv("POLITICALRE_ROOT", unset = ".")
 MORVAN  <- file.path(PROJECT, "code")
 
-message("Loading cohorts (source run_morvan_competitif.R)...")
-# sys.source runs in THIS environment -- run_morvan_competitif.R defines its
+message("Loading cohorts (source heckman_selection_instrument.R)...")
+# sys.source runs in THIS environment -- heckman_selection_instrument.R defines its
 # own PROJECT/FIG/stars/etc, which would silently clobber ours if we set
 # TAB/FIG before this call. Set our output paths AFTER sourcing instead.
-sys.source(file.path(MORVAN, "run_morvan_competitif.R"), envir = environment())
+sys.source(file.path(MORVAN, "heckman_selection_instrument.R"), envir = environment())
 
 PROJECT <- Sys.getenv("POLITICALRE_ROOT", unset = ".")
 PUB     <- file.path(PROJECT, "code/heckman")

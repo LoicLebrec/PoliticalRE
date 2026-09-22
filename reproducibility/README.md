@@ -70,8 +70,14 @@ chain).
 
 ## What's in `reference_output/`
 
-Snapshot of the tables `run_pipeline.R` should reproduce, taken from a full
-run of the pipeline. Diff your own rerun's output against these:
+Snapshot of the tables `run_pipeline.R` should reproduce, taken from a
+verified full 15/15 run of the pipeline. Diff your own rerun's output
+against these -- but expect small drift (sample sizes off by single
+digits, coefficients shifting in the 3rd decimal) if `Parc.csv` or
+`dette_communes.csv` were freshly re-fetched: both come from government
+sources that update daily (see `/data_prep`), so cohort composition can
+shift slightly between pulls. That's the live data changing, not a bug --
+only worry if a rerun disagrees with these by more than that.
 
 | File | Compare against |
 |---|---|

@@ -60,7 +60,7 @@ cat(sprintf("Communes fusionnees exclues : %d -> %d (commune_fixe==1)\n",
 
 ctrl_codes_matched <- read_csv(file.path(PROJECT, "code/control_group_matched.csv"),
                        col_types=col_spec) %>% pull(code_insee) %>% unique()
-ctrl_codes_baseline <- read_csv(file.path(DATA, "control_group.csv"), col_types=col_spec) %>%
+ctrl_codes_baseline <- read_csv(file.path(DATA, "control_group_baseline.csv"), col_types=col_spec) %>%
   pull(code_insee) %>% unique()
 turnover  <- read_csv(file.path(DATA,"turnover_candidats.csv"), col_types=col_spec) %>%
   select(code_insee, annee, turnover_pp)

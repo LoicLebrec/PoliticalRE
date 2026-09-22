@@ -1,13 +1,13 @@
 control,outcome,overall_att,overall_se,overall_p,any_presig
-Socioeconomically matched control,Candidacy (pp),0.945,1.629,0.562,FALSE
-Socioeconomically matched control,Reelection (pp),-0.5,1.727,0.772,FALSE
-Socioeconomically matched control,Winner vote share (%),-0.155,0.438,0.723,FALSE
-Socioeconomically matched control,Abstention (%),-0.018,0.229,0.939,FALSE
-Socioeconomically matched control,Candidate turnover (%),0.084,0.853,0.922,FALSE
-Socioeconomically matched control,Incumbent vote share (%),-0.156,0.629,0.804,FALSE
-Baseline control,Candidacy (pp),1.099,1.616,0.496,FALSE
-Baseline control,Reelection (pp),-0.407,1.564,0.795,FALSE
-Baseline control,Winner vote share (%),0.114,0.423,0.787,FALSE
-Baseline control,Abstention (%),0.352,0.219,0.109,FALSE
-Baseline control,Candidate turnover (%),-0.708,0.754,0.348,FALSE
-Baseline control,Incumbent vote share (%),0.266,0.616,0.666,FALSE
+Socioeconomically matched control,Candidacy (pp),1.276,1.536,0.406,FALSE
+Socioeconomically matched control,Reelection (pp),-0.113,1.683,0.946,TRUE
+Socioeconomically matched control,Winner vote share (%),-0.121,0.442,0.783,FALSE
+Socioeconomically matched control,Abstention (%),-0.02,0.229,0.932,FALSE
+Socioeconomically matched control,Candidate turnover (%),-0.148,0.784,0.85,FALSE
+Socioeconomically matched control,Incumbent vote share (%),-0.142,0.607,0.815,FALSE
+Baseline control,Candidacy (pp),1.472,1.693,0.384,FALSE
+Baseline control,Reelection (pp),-0.02,1.637,0.99,TRUE
+Baseline control,Winner vote share (%),0.148,0.443,0.739,FALSE
+Baseline control,Abstention (%),0.353,0.229,0.124,FALSE
+Baseline control,Candidate turnover (%),-0.926,0.796,0.245,FALSE
+Baseline control,Incumbent vote share (%),0.271,0.608,0.656,FALSE

@@ -38,7 +38,9 @@ DATA    <- file.path(PROJECT, "code/shared_data")
 ELEC    <- file.path(PROJECT, "election_data/data_quentin")
 MORVAN  <- file.path(PROJECT, "code")
 FIG     <- file.path(MORVAN, "figures")
+TAB     <- file.path(MORVAN, "tables")
 dir.create(FIG, showWarnings = FALSE, recursive = TRUE)
+dir.create(TAB, showWarnings = FALSE, recursive = TRUE)
 
 col_sp <- cols(code_insee = col_character(), dep = col_character(), .default = col_guess())
 pad5   <- function(x) str_pad(str_extract(as.character(x), "[0-9A-Za-z]+"), 5, "left", "0")
@@ -62,7 +64,7 @@ cat(sprintf("Communes fusionnees exclues (pm) : %d -> %d\n",
             n_distinct(pm_full$code_insee), n_distinct(pm$code_insee)))
 cat(sprintf("Communes fusionnees exclues (panel_raw) : %d -> %d\n",
             n_distinct(panel_raw_full$code_insee), n_distinct(panel_raw$code_insee)))
-ctrl_codes <- read_csv(file.path(DATA, "control_group.csv"), col_types = col_sp) %>%
+ctrl_codes <- read_csv(file.path(DATA, "control_group_baseline.csv"), col_types = col_sp) %>%
   pull(code_insee) %>% unique()
 
 closeness <- read_csv(file.path(MORVAN, "shared_data/closeness.csv"),
@@ -378,7 +380,7 @@ fig_dat <- bind_rows(
   )
 
 print(fig_dat %>% select(stage, cohort, competitif, estimate, se, p))
-write_csv(fig_dat, file.path(MORVAN, "tables/tab3_ame_competitif.csv"))
+write_csv(fig_dat, file.path(TAB, "tab3_ame_competitif.csv"))
 
 # ─── Contraste (Competitif - Non-compet.), pour annotation / verif ────────
 contrast_by_group <- function(model, newdata) {

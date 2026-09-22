@@ -9,7 +9,7 @@
 #   4. Proximite socio-economique avec le groupe traite (Cohorte B, annee
 #      de reference 2014) : probit(traite ~ vent + log(pop) + log(revenu)
 #      + log(investissement) + dep), seuil = P10 des traites -- meme
-#      logique que hp_control_codes dans run_morvan_competitif.R, mais ICI
+#      logique que hp_control_codes dans heckman_selection_instrument.R, mais ICI
 #      un seul groupe de controle partage pour toutes les figures TWFE
 #      (comme control_group.csv l'etait), pas un matching par cohorte.
 #      Dette ECARTEE (desc. stats : pas de difference traite/controle
