@@ -1,0 +1,26 @@
+\begin{table}[!h]
+\centering
+\caption{\label{tab:main_results}Main results: headline estimate by outcome, across all 3 empirical strategies}
+\centering
+\fontsize{9}{11}\selectfont
+\begin{threeparttable}
+\begin{tabular}[t]{lrllllll}
+\toprule
+\multicolumn{2}{c}{ } & \multicolumn{2}{c}{TWFE} & \multicolumn{2}{c}{Callaway-Sant'Anna} & \multicolumn{2}{c}{Heckman selection} \\
+\cmidrule(l{3pt}r{3pt}){3-4} \cmidrule(l{3pt}r{3pt}){5-6} \cmidrule(l{3pt}r{3pt}){7-8}
+Outcome & N treated & TWFE (Cohort B) & TWFE SE & CS (pooled) & CS SE & Heckman (Cohort B) & Heckman SE\\
+\midrule
+Candidacy (pp) & 592 & -2.02 & 2.88 & +0.94 & 1.63 & -8.10 & 6.20\\
+Reelection (pp) & 623 & -3.08 & 3.03 & -0.50 & 1.73 & -2.60 & 1.80\\
+Winner vote share (\%) & 637 & -1.02 & 0.71 & -0.15 & 0.44 & -- & --\\
+Abstention (\%) & 637 & -0.88** & 0.42 & -0.02 & 0.23 & -- & --\\
+Candidate turnover (\%) & 621 & +0.91 & 1.12 & +0.08 & 0.85 & -- & --\\
+Incumbent vote share (\%) & 429 & +1.48 & 1.35 & -0.16 & 0.63 & -- & --\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Note: } 
+\item TWFE and Heckman: Cohort B only (2014-2020, single 2x2 window). CS: pooled across all 3 cohorts (2014/2020/2026); NOT the same sample as the other two columns, shown together for comparison, not as three estimates of an identical parameter. All 3 use the socioeconomically matched control pool. Heckman coefficients are LPM marginal effects, rescaled x100 to the same pp units as TWFE/CS. N treated is the TWFE treated-commune count per outcome (varies with outcome-specific missingness); Heckman (Cohort B) has 496 treated communes of 7,415 total; CS pools 1,733 treated communes across all 3 cohorts before per-outcome missingness. Heckman covers only Candidacy (selection equation) and Reelection (outcome equation); '--' where not estimated. *** p<0.01, ** p<0.05, * p<0.10.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
