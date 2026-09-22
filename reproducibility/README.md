@@ -148,26 +148,30 @@ one-time).
 
 ## Known caveats (read before trusting a from-scratch run)
 
-**1. `external_wind_voteshare.csv` is a frozen external snapshot.**
-`wind_speed_100m` (likely Global Wind Atlas -- see `/data_prep`) and
-`voix_gagnant_mean/min/max` (source unresolved) come from outside this
-project -- no internal script computes them. Frozen in
+**1. `external_wind_voteshare.csv` is a frozen snapshot.**
+`wind_speed_100m` (likely Global Wind Atlas -- see `/data_prep`) is
+external; `voix_gagnant_mean/min/max` is author-confirmed home-made
+(counted in-house from this project's own election data, not a third-party
+source) but the exact script wasn't preserved. No internal script
+currently computes either. Frozen in
 `code/external_wind_voteshare.csv` (99.6% coverage, `code_insee` x `annee`
 keyed) and merged back into `panel.csv` automatically as `build_panel.R`'s
 last step. If the true source is ever identified, replace this file with
 the real fetch script -- see `/data_prep/README.md`.
 
 **2. `control_group_baseline.csv` (the "unmatched" control pool) is a
-frozen legacy file**, not reproducible by any current script. Author-
-confirmed general method: filtered from the `election_data/data_quentin/`
-panel using the project's standard control-group filters (rural, never-
-treated) -- but the exact filter script wasn't found. Reverse-engineered as
-far as the data supports: the rule "rural (density 5-7) in 2014, never
-treated, present in the panel at all 4 election years" recovers 21,740 of
-its 21,744 communes (99.98%), but over-generates by ~6,000 communes vs. an
-unidentified extra filter. Internally consistent and safe to use as-is (no
-communes in it are actually treated under the corrected treatment
-definition), just not regeneratable from source.
+frozen legacy file**, not regeneratable byte-for-byte by any current
+script -- but the construction method is author-confirmed and explicit:
+filtered from the project's own commune-election panel down to communes
+that are rural (density 5-7) and never treated, the same filter pair
+`code/build_control_group.R` applies for the matched pool. Not an external
+dataset, just built by hand rather than a saved script. Independently
+reverse-engineered from the data as a check: the rule "rural (density 5-7)
+in 2014, never treated, present in the panel at all 4 election years"
+recovers 21,740 of its 21,744 communes (99.98%, confirming the method),
+but over-generates by ~6,000 communes vs. some additional unidentified
+filter. Internally consistent and safe to use as-is (no communes in it are
+actually treated under the corrected treatment definition).
 
 **3. Scripts resolve paths relative to the repo root by default**, with an
 env-var override for running from elsewhere: `PROJECT <- Sys.getenv(
