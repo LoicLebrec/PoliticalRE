@@ -15,7 +15,8 @@
 #      Dette ECARTEE (desc. stats : pas de difference traite/controle
 #      significative sur la dette, cf. discussion).
 #
-# Sortie : data/control_group_new.csv (code_insee)
+# Sortie : code/control_group_matched.csv (code_insee) -- le fichier lu par
+# toutes les etapes en aval (TWFE, CS, IPW, balance, descriptif).
 
 suppressPackageStartupMessages({
   library(dplyr); library(readr); library(tidyr); library(stringr); library(readxl)
@@ -110,5 +111,5 @@ control_new <- cross$code_insee[cross$ever_treated == 0 & p_hat >= thresh]
 cat(sprintf("3. Matching socio-eco (P10 traites) : %d communes retenues sur %d candidates\n",
             length(control_new), sum(cross$ever_treated == 0)))
 
-write_csv(tibble(code_insee = control_new), file.path(OUT_DIR, "control_group_new.csv"))
-cat(sprintf("\nSaved -> %s (%d communes)\n", file.path(OUT_DIR, "control_group_new.csv"), length(control_new)))
+write_csv(tibble(code_insee = control_new), file.path(OUT_DIR, "control_group_matched.csv"))
+cat(sprintf("\nSaved -> %s (%d communes)\n", file.path(OUT_DIR, "control_group_matched.csv"), length(control_new)))

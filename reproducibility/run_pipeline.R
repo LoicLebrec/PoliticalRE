@@ -27,6 +27,8 @@ steps <- list(
   list(n = "9. Callaway-Sant'Anna event study",     f = "code/callaway_santanna/build_cs_eventstudy.R"),
   list(n = "10. Descriptive outputs (stats table, source comparison, treatment map)",
                                                     f = "code/descriptive/build_descriptive.R"),
+  list(n = "10b. Cumulative commissioned parks figure (fig:parks_evolution)",
+                                                    f = "code/descriptive/build_parks_evolution.R"),
   list(n = "11. Main results table (TWFE x CS x Heckman)",
                                                     f = "code/build_main_results_table.R"),
   list(n = "12. Baseline-pool results table (appendix counterpart to step 11)",

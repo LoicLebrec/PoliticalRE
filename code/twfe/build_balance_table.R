@@ -3,7 +3,7 @@
 #   the shared reference cohort used throughout code).
 # CONTROL: rural density 5-7, never treated, department with > 3 treated
 #   municipalities, probit-matched on wind + log(pop) + log(income) +
-#   log(investment) + department FE (control_group_new.csv).
+#   log(investment) + department FE (control_group_matched.csv).
 # All variables measured at 2014 (pre-treatment baseline), standard practice
 # for a balance table (parallel-trends / matching-quality check).
 #

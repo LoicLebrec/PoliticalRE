@@ -15,7 +15,7 @@ repository. With that in place, run from the repository root:
 Rscript reproducibility/run_pipeline.R
 ```
 
-This executes all 15 steps in dependency order and halts on the first
+This executes all 16 steps in dependency order and halts on the first
 failure; a table is considered reproduced only if every preceding step
 succeeded (see Caveats). Steps 1-11 require approximately 3.5 minutes;
 steps 12-14 (baseline-pool and placebo robustness tables) add several
@@ -105,6 +105,8 @@ instead.
 | `table_d705_main.csv` | `code/robustness/tables/table_d705_main.csv` |
 | `table_desert_main.csv` | `code/robustness/tables/table_desert_main.csv` |
 | `table_school_main.csv` | `code/robustness/tables/table_school_main.csv` |
+| `table_ipw_selection.csv` | `code/twfe/tables/table_ipw_selection.csv` |
+| `table_cs_anticipation_sensitivity.csv` | `code/callaway_santanna/tables/table_cs_anticipation_sensitivity.csv` |
 | `table_percode_abstention.csv` | `code/robustness/tables/table_percode_abstention.csv` |
 
 Figures are not included in this snapshot, as PNG output does not compare
@@ -134,6 +136,7 @@ derived from the same underlying values.
 10. code/descriptive/build_descriptive.R  -> table_descriptive_stats.{csv,tex}, treatment_map.png
                                            (requires 1, 3; downloads and caches
                                            data/geo/departements.geojson on first run)
+10b. code/descriptive/build_parks_evolution.R -> cumulative_parks_evolution.png (requires Parc.csv only)
 11. code/build_main_results_table.R       -> table_main_results.{csv,tex}   (requires 4, 8, 9)
 12. code/build_baseline_results_table.R   -> table_baseline_results.{csv,tex}   (requires 4, 9)
 13. code/robustness/build_control_groups.R -> control_group_{d705,desert,school}_cohort*.csv
@@ -204,10 +207,10 @@ direction (+0.352, p=0.109 -> +0.488, p=0.024). Adding the department
 filter resolves the second (+0.348, p=0.112 -- matches the legacy pool to
 within noise) and improves but does not fully resolve the first (-2.80,
 closer to -3.00 but still short of p<0.10). Every other headline number
-across all 15 tables now matches the legacy pool closely; the Heckman
-Reelection significance is the one number that should be checked against
-the paper's text before submission -- see `/data_prep/README.md` for the
-full account. The legacy file is preserved at
+across all 15 tables now matches the legacy pool closely. The paper
+reports the script-generated values: Heckman Reelection -2.80, not
+significant (p=0.125), with the Heckman cohort sample sizes as produced
+here -- see `/data_prep/README.md` for the full account. The legacy file is preserved at
 `code/shared_data/control_group_baseline_legacy.csv` but is no longer
 read by the pipeline.
 

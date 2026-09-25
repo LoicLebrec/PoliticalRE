@@ -324,7 +324,7 @@ match_control <- function(panel_raw, yr_ref, treated_codes, pool_codes, income_s
   matched
 }
 
-# NOTE on wind's "dept > 3 treated" pool filter (build_control_new.R step 2,
+# NOTE on wind's "dept > 3 treated" pool filter (build_control_group.R step 2,
 # "no wind deserts"): deliberately NOT ported here. Checked empirically --
 # D705's best department has only 3 ever-treated communes nationwide (rural,
 # across all 3 cohorts combined), so a literal >3 threshold clears zero

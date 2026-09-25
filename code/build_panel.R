@@ -198,7 +198,7 @@ cat(sprintf("  Communes ever treated: %d\n",
 # %% 3b. External columns (wind_speed_100m, voix_gagnant_mean/min/max) -------
 # These 4 columns come from a source outside this repo (no internal script
 # computes them -- confirmed, see code/replication/
-# README.md caveat 1). Used downstream by build_control_new.R, run_morvan*.R,
+# README.md caveat 1). Used downstream by build_control_group.R, run_morvan*.R,
 # and build_balance_table.R. Without this merge, panel.csv silently loses
 # them every time build_panel.R is rerun (variableY.csv doesn't have them),
 # which broke the pipeline once already -- merging a frozen snapshot back in

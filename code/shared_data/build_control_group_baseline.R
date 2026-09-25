@@ -13,9 +13,10 @@
 # script (rural + never-treated only, no department filter) was checked
 # against the legacy file: that version matched 99.98% of the legacy
 # file's communes but over-selected by 5,827; adding this filter keeps
-# the same 99.98% match while cutting the over-selection to 955 (four
-# legacy communes remain unmatched, in departments with 18-49 parks, for
-# reasons not further investigated -- negligible at this scale).
+# the same 99.98% match while cutting the over-selection to 934 (four
+# legacy communes remain unmatched, in departments with 18-49 parks,
+# two of which (27486, 54590) are treated in the current panel -- the
+# legacy file was built against an older Parc.csv vintage).
 #
 # See data_prep/README.md for the impact of this pool on published
 # results, checked directly by rerunning the full pipeline.

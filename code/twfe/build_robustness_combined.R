@@ -383,7 +383,7 @@ make_figure <- function(results_matched, coh_lbl, yr_lo, yr_hi, out_file) {
       x="Estimated effect + 95% CI",
       caption=paste(
         sprintf("TREATMENT: rural density 5-7, 0 wind farms in %d -> >=1 by %d.", yr_lo, yr_hi),
-        "CONTROL (build_control_new.R): rural density 5-7, never treated, department with > 3 treated municipalities, probit-matched (wind + log(pop) + log(income) + log(investment) + department FE, P10 threshold of treated).",
+        "CONTROL (build_control_group.R): rural density 5-7, never treated, department with > 3 treated municipalities, probit-matched (wind + log(pop) + log(income) + log(investment) + department FE, P10 threshold of treated).",
         sprintf("TWFE | municipality + year FE | municipality-clustered SE. Reference = Full Cohort %s, shared across all categories.", coh_lbl),
         sep="\n")
     ) +

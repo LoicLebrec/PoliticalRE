@@ -100,7 +100,7 @@ write_table <- function(dat, csv_name, tex_name, caption, group_cols, has_catego
 }
 
 MATCHED_CONTROL_NOTE  <- "CONTROL: rural density 5-7, never treated, department with > 3 treated municipalities, probit-matched (wind + log(pop) + log(income) + log(investment) + department FE, P10 threshold of treated)."
-BASELINE_CONTROL_NOTE <- "CONTROL: rural density 5-7, never treated, department with > 3 treated municipalities, NO income/investment/wind matching (baseline pool, control_group.csv)."
+BASELINE_CONTROL_NOTE <- "CONTROL: rural density 5-7, never treated, department with >= 3 wind parks in Parc.csv, present at all 4 elections, NO income/investment/wind matching (baseline pool, control_group_baseline.csv)."
 
 build_cohort_tables <- function(coh_label, yr_lo, yr_hi, suffix) {
   treatment_note <- sprintf("TREATMENT: rural density 5-7, 0 wind farms in %d -> >=1 by %d.", yr_lo, yr_hi)

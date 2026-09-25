@@ -79,8 +79,11 @@ parc <- read_csv(PARC, col_types = cols(
 # -- the closest available proxy for an abandoned project (Parc.csv has no
 # explicit abandonment flag). 1990/today bounds guard against a handful of
 # corrupted date fields (e.g. a single row with an implausible multi-century
-# gap).
-today <- Sys.Date()
+# gap). Anchored to the data access date (data_prep/README.md), not
+# Sys.Date(): a moving "today" made this count drift between reruns on the
+# same frozen Parc.csv (199 on 2026-09-22, 200 three days later).
+DATA_ACCESS_DATE <- as.Date("2026-09-22")
+today <- DATA_ACCESS_DATE
 stuck <- parc %>% filter(is.na(d_mes)) %>%
   rowwise() %>%
   mutate(last_stage_date = suppressWarnings(max(c(d_depot, d_avis, d_auth, d_constr), na.rm = TRUE))) %>%
@@ -159,7 +162,7 @@ cat("\n=== 2. Cumulative capacity, 3 sources ===\n")
 
 tryCatch({
 
-CUR_YEAR <- as.integer(format(Sys.Date(), "%Y"))
+CUR_YEAR <- as.integer(format(DATA_ACCESS_DATE, "%Y"))
 
 parc_base <- read.csv(file.path(PROJECT, "data/parceolien/Parc_merged_multi_communes.csv"), check.names = FALSE) %>%
   filter(etat_parc == "En exploitation", !is.na(date_mise_en_service), date_mise_en_service != "") %>%
@@ -352,7 +355,7 @@ cat(sprintf("Saved -> %s\n", file.path(FIG, "treatment_map.png")))
 # ══════════════════════════════════════════════════════════════════════════
 # 4. SAMPLE FLOW DIAGRAM -- France's ~35,000 communes down to the Cohort B
 # analytic sample, for the paper appendix. Every N recomputed HERE with the
-# same filters as the live pipeline scripts (build_control_new.R,
+# same filters as the live pipeline scripts (build_control_group.R,
 # twfe/build_robustness_combined.R) -- not read from a per-outcome-filtered
 # output table (that's what made an earlier version of this kind of figure,
 # cohort_timeline.png, cite a different N than the rest of the pipeline;
